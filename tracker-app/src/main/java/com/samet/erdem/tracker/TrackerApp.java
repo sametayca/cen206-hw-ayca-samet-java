@@ -11,22 +11,14 @@
 */
 package com.samet.erdem.tracker;
 
-
-
 /**
- *
  * @class TrackerApp
- * @brief This class represents the main application class for the Tracker
- *        App.
- * @details The TrackerApp class provides the entry point for the Tracker
- *          App. It initializes the necessary components, performs calculations,
- *          and handles exceptions.
- * @author ugur.coruh
+ * @brief Main application class for the Recipe and Nutrition Tracker.
  */
 public class TrackerApp {
- 
-  public static void main(String[] args) {
-
-  }
-
+    public static void main(String[] args) {
+        Tracker tracker = new Tracker();
+        tracker.start();
+    }
 }
+  
