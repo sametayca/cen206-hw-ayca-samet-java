@@ -56,10 +56,10 @@ public class Tracker {
     }
     
     public void start() {
-        showLoginMenu();
+        showLoginMenuOnce();
     }
     
-    public static void clearScreen() {
+    public void clearScreen() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -71,36 +71,35 @@ public class Tracker {
         }
     }
 
-    private void showLoginMenu() {
-        while (true) {
-            clearScreen();
-            System.out.println("\n=== Recipe and Nutrition Tracker ===");
-            System.out.println("1. Register User");
-            System.out.println("2. Login User");
-            System.out.println("3. Exit");
-            System.out.print("Select your option: ");
-            
-            String choice = scanner.nextLine();
-            
-            switch (choice) {
-                case "1":
-                    register();
-                    break;
-                case "2":
-                    login();
-                    break;
-                case "3":
-                    System.out.println("Exiting program...");
-                    return;
-                default:
-                    System.out.println("Invalid option!");
-                    System.out.println("Press Enter to continue...");
-                    scanner.nextLine();
-            }
+ 
+    public void showLoginMenuOnce() {
+        System.out.println("\n=== Recipe and Nutrition Tracker ===");
+        System.out.println("1. Register User");
+        System.out.println("2. Login User");
+        System.out.println("3. Exit");
+        System.out.print("Select your option: ");
+        
+        String choice = scanner.nextLine();
+        
+        switch (choice) {
+            case "1":
+                register();
+                break;
+            case "2":
+                login();
+                break;
+            case "3":
+                System.out.println("Exiting program...");
+                break;
+            default:
+                System.out.println("Invalid option!");
+                System.out.println("Press Enter to continue...");
+                scanner.nextLine();
         }
     }
+
     
-    private void register() {
+   public void register() {
         clearScreen();
         System.out.println("\n=== Register User Menu ===");
 
@@ -169,7 +168,7 @@ public class Tracker {
                 System.out.println("Registration successful!");
                 System.out.println("Press Enter to continue...");
                 scanner.nextLine();
-            } catch (SQLException e) {
+            } catch (SQLException e) {	
                 System.out.println("Error during registration: " + e.getMessage());
             }
         } catch (Exception e) {
@@ -178,7 +177,7 @@ public class Tracker {
         }
     }
     
-    private void login() {
+    void login() {
         clearScreen();
         System.out.println("\n=== Login User Menu ===");
         
@@ -225,7 +224,7 @@ public class Tracker {
         }
     }
     
-    private void showMainMenu() {
+    void showMainMenu() {
         while (true) {
             clearScreen();
             System.out.println("\n=== Main Menu ===");
@@ -270,7 +269,7 @@ public class Tracker {
         }
     }
     
-    private void addProduct() {
+    void addProduct() {
         clearScreen();
         System.out.println("\n=== Add Product/Recipe ===");
         
@@ -303,7 +302,7 @@ public class Tracker {
         }
     }
     
-    private void viewAllProducts() {
+    void viewAllProducts() {
         clearScreen();
         System.out.println("\n=== All Products ===");
         
@@ -332,7 +331,7 @@ public class Tracker {
         }
     }
     
-    private void 
+    public void 
     updateProduct() {
         clearScreen();
         System.out.println("\n=== Update Product ===");
