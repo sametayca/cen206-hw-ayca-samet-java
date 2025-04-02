@@ -41,8 +41,8 @@ import java.util.List;
 public class Tracker {
     private Scanner scanner;
     private UserDAO userDAO;
-    private ProductDAO productDAO;
-    private User currentUser;
+    protected ProductDAO productDAO;
+    protected User currentUser;
     private RecipeManager recipeManager;
     private NutritionTracker nutritionTracker;
     
