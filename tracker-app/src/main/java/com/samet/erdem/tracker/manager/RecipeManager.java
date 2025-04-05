@@ -14,7 +14,7 @@ public class RecipeManager {
     private static RecipeManager instance;
     private List<Recipe> recipes;
     
-    private RecipeManager() {
+    public RecipeManager() {
         recipes = new ArrayList<>();
     }
     

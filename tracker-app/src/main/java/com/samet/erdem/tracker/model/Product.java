@@ -100,6 +100,9 @@ public class Product {
         return createdAt;
     }
     
+    public Product() {
+        // Varsayılan değerlerle boş bir ürün nesnesi oluşturulabilir.
+    }
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }

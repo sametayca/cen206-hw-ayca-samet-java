@@ -11,7 +11,7 @@ import java.util.List;
  * @brief Data Access Object for Product entities.
  */
 public class ProductDAO {
-    private Connection connection;
+    protected Connection connection;
     
     public ProductDAO() {
         try {
