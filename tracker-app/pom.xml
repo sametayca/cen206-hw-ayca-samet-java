@@ -28,9 +28,33 @@
 			</roles>
 		</developer>
 		<developer>
-			<name>Other Person</name>
+			<name>Samet Ayca</name>
 			<organization>RTEU</organization>
-			<email>mail@gmail.com</email>
+			<email>samet_ayca22@erdogan.edu.tr</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Arda Firidin</name>
+			<organization>RTEU</organization>
+			<email>arda_firidin22@erdogan.edu.tr</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Erdem Bekir Akturk</name>
+			<organization>RTEU</organization>
+			<email>erdembekir_akturk22@erdogan.edu.tr</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Emre Kiran</name>
+			<organization>RTEU</organization>
+			<email>emre_kiran22@erdogan.edu.tr</email>
 			<roles>
 				<role>Developer</role>
 			</roles>
@@ -47,9 +71,33 @@
 			</roles>
 		</contributor>
 		<contributor>
-			<name>Other Person</name>
+			<name>Samet Ayca</name>
 			<organization>RTEU</organization>
-			<email>mail@gmail.com</email>
+			<email>samet_ayca22@erdogan.edu.tr</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>Erdem Bekir Akturk</name>
+			<organization>RTEU</organization>
+			<email>erdembekir_akturk22@erdogan.edu.tr</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>Arda Firidin</name>
+			<organization>RTEU</organization>
+			<email>arda_firidin22@erdogan.edu.tr</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>Emre Kiran</name>
+			<organization>RTEU</organization>
+			<email>emre_kiran22@erdogan.edu.tr</email>
 			<roles>
 				<role>Developer</role>
 			</roles>
