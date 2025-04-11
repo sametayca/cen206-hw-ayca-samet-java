@@ -11,6 +11,26 @@ import java.sql.*;
 public class UserDAO {
     private Connection connection;
     
+    public User getUserByUsername(String username) throws SQLException {
+        String sql = "SELECT * FROM users WHERE username = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new User(
+                    rs.getInt("id"),
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    rs.getDouble("height"),
+                    rs.getDouble("weight"),
+                    rs.getTimestamp("created_at")
+                );
+            }
+        }
+        return null;
+    }
+
+    
     public UserDAO() {
         try {
             DatabaseConnection dbConnection = DatabaseConnection.getInstance();

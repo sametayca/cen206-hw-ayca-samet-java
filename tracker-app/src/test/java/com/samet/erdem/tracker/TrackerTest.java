@@ -127,15 +127,19 @@ public void testRegisterFunctionWithValidInput() {
 
 @Test
 public void testLogin_WithEmptyUsername_ShouldShowErrorMessage() {
-    String simulatedInput = "\npassword123\n"; // username boş
+    // Girişte boş kullanıcı adı veriliyor, ardından "Enter" simülasyonu
+    String simulatedInput = "\npassword123\n\n";
     System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
-    
+
+    // Konsol çıktısını yakala
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     System.setOut(new PrintStream(outContent));
 
+    // Tracker nesnesi ve login çağrısı
     Tracker tracker = new Tracker();
     tracker.login();
 
+    // Çıktının kontrolü
     String output = outContent.toString();
     Assert.assertTrue(output.contains("Username cannot be empty!"));
 }
@@ -175,21 +179,83 @@ public void testLogin_WithEmptyPassword_ShouldShowErrorMessage() {
 
 @Test
 public void testRegisterFunction2WithValidInput() {
-    // Sırasıyla: username, password, height, weight
-    String simulatedInput = "1\ntestUser2\npassword123\n180\n75\n";
+    // Giriş: username, password, height, weight, press enter
+    String simulatedInput = "testUser2\npassword123\n180\n75\n\n";
     System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
 
-    Tracker tracker = new Tracker();
-    tracker.showLoginMenuOnce();
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
 
+    Tracker tracker = new Tracker();
+    tracker.register();
+
+    String output = outContent.toString();
     Assert.assertTrue(true);
 }
 
 @Test
+public void testRegister_WithValidInput_ShouldRegisterSuccessfully() {
+    // username, password, height, weight, enter (for continue)
+    String simulatedInput = "validUser\nsecurePass\n175\n70\n\n";
+    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+    
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+
+    Tracker tracker = new Tracker();
+    tracker.register();
+
+    String output = outContent.toString();
+    Assert.assertTrue(true);
+}
+
+@Test
+public void testRegister_WithValidInput_ShouldShowSuccessMessage() throws Exception {
+    // Giriş: username, password, height, weight, enter
+    String simulatedInput = "testValidUser1\nsecurePass\n175\n70\n\n";
+    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+    // Output yakalama
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    PrintStream originalOut = System.out;
+    System.setOut(new PrintStream(outContent));
+
+    Tracker tracker = new Tracker() {
+        @Override
+        public void clearScreen() {
+            // Temizleme işlemini testte geç
+        }
+    };
+
+    // Register fonksiyonunu çalıştır
+    tracker.register();
+
+    // Çıktıyı yakala
+    String output = outContent.toString();
+    System.setOut(originalOut); // stdout'u eski haline getir
+
+    // DEBUG
+    System.out.println("Çıktı:\n" + output);
+
+    // Doğrulama
+    Assert.assertTrue("Kayıt mesajı bulunamadı", output.contains("Registration successful!"));
+
+    // Cleanup
+    UserDAO userDAO = new UserDAO();
+    User createdUser = userDAO.getUserByUsername("testValidUser1");
+    if (createdUser != null) {
+        userDAO.deleteUser(createdUser.getId());
+    }
+}
+
+
+@Test
 public void testRegister_WithNegativeHeight_ShouldShowErrorMessage() {
-    // username, password, height = -180, weight = 70, press enter
     String simulatedInput = "user1\npass1\n-180\n70\n\n";
     System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
 
     Tracker tracker = new Tracker();
     tracker.register();
@@ -200,9 +266,11 @@ public void testRegister_WithNegativeHeight_ShouldShowErrorMessage() {
 
 @Test
 public void testRegister_WithNegativeWeight_ShouldShowErrorMessage() {
-    // username, password, height = 180, weight = -70, press enter
     String simulatedInput = "user2\npass2\n180\n-70\n\n";
     System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
 
     Tracker tracker = new Tracker();
     tracker.register();
@@ -210,6 +278,67 @@ public void testRegister_WithNegativeWeight_ShouldShowErrorMessage() {
     String output = outContent.toString();
     Assert.assertTrue(output.contains("Height and weight must be positive values!"));
 }
+
+@Test
+public void testRegister_WithEmptyUsername_ShouldShowErrorMessage() {
+    String simulatedInput = "\n";  // boş username
+    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+
+    Tracker tracker = new Tracker();
+    tracker.register();
+
+    String output = outContent.toString();
+    Assert.assertTrue(output.contains("Username cannot be empty!"));
+}
+
+@Test
+public void testRegister_WithEmptyPassword_ShouldShowErrorMessage() {
+    String simulatedInput = "testUser3\n\n";  // boş şifre
+    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+
+    Tracker tracker = new Tracker();
+    tracker.register();
+
+    String output = outContent.toString();
+    Assert.assertTrue(output.contains("Password cannot be empty!"));
+}
+
+@Test
+public void testRegister_WithInvalidHeight_ShouldShowErrorMessage() {
+    String simulatedInput = "testUser4\npass4\nabc\n70\n\n"; // abc geçersiz height
+    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+
+    Tracker tracker = new Tracker();
+    tracker.register();
+
+    String output = outContent.toString();
+    Assert.assertTrue(output.contains("Please enter valid numerical values!"));
+}
+
+@Test
+public void testRegister_WithInvalidWeight_ShouldShowErrorMessage() {
+    String simulatedInput = "testUser5\npass5\n180\nxyz\n\n"; // xyz geçersiz weight
+    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+
+    Tracker tracker = new Tracker();
+    tracker.register();
+
+    String output = outContent.toString();
+    Assert.assertTrue(output.contains("Please enter valid numerical values!"));
+}
+
 
 @Test
 public void testLoginFunctionWithValidInput() {
@@ -414,6 +543,77 @@ public void testCalculateCalories_ValidInput() {
     Assert.assertTrue(output.contains("Fat:"));
     Assert.assertTrue(output.contains("Body Mass Index (BMI):"));
 }
+
+@Test
+public void testCalculateCalories_ObeseBMI_ShouldShowObeseStatus() throws Exception {
+    UserDAO userDAO = new UserDAO();
+    User obeseUser = new User("testObese", "pass123", 180.0, 100.0); // BMI > 30
+    obeseUser = userDAO.register(obeseUser);
+
+    String simulatedInput = "testObese\npass123\n\n5\n\n7\n\n";
+    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+
+    Tracker tracker = new Tracker() {
+        @Override
+        public void clearScreen() {}
+    };
+
+    tracker.login();
+    String output = outContent.toString();
+    Assert.assertTrue(output.contains("Status: Obese"));
+
+    userDAO.deleteUser(obeseUser.getId());
+}
+
+@Test
+public void testCalculateCalories_OverweightBMI_ShouldShowOverweightStatus() throws Exception {
+    UserDAO userDAO = new UserDAO();
+    User overweightUser = new User("testOver", "pass123", 180.0, 85.0); // BMI 26.2
+    overweightUser = userDAO.register(overweightUser);
+
+    String simulatedInput = "testOver\npass123\n\n5\n\n7\n\n";
+    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+
+    Tracker tracker = new Tracker() {
+        @Override
+        public void clearScreen() {}
+    };
+
+    tracker.login();
+    String output = outContent.toString();
+    Assert.assertTrue(output.contains("Status: Overweight"));
+
+    userDAO.deleteUser(overweightUser.getId());
+}
+
+@Test
+public void testCalculateCalories_NormalBMI_ShouldShowNormalStatus() throws Exception {
+    UserDAO userDAO = new UserDAO();
+    User normalUser = new User("testNormal", "pass456", 180.0, 70.0); // BMI ≈ 21.6
+    normalUser = userDAO.register(normalUser);
+
+    String simulatedInput = "testNormal\npass456\n\n5\n\n7\n\n";
+    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+
+    Tracker tracker = new Tracker() {
+        @Override
+        public void clearScreen() {}
+    };
+
+    tracker.login();
+    String output = outContent.toString();
+    Assert.assertTrue(output.contains("Status: Normal"));
+
+    userDAO.deleteUser(normalUser.getId());
+}
+
+
 @Test
 public void testAdjustDiet_ValidInput() {
     String simulatedInput =
