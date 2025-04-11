@@ -19,6 +19,7 @@ import org.junit.*;
 import java.io.*;
 import java.sql.Timestamp;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
@@ -1523,6 +1524,61 @@ public void testSetUserIdAndCreatedAt_ShouldAssignValuesCorrectly() {
     // 4. Doğrulamalar
     Assert.assertEquals(expectedUserId, product.getUserId());
     Assert.assertEquals(expectedTimestamp, product.getCreatedAt());
+}
+
+@Test
+public void testReconnectWhenConnectionClosed() throws SQLException {
+    DatabaseConnection dbConn = DatabaseConnection.getInstance();
+    Connection oldConn = dbConn.getConnection();
+    oldConn.close(); // simulate disconnection
+    Connection newConn = dbConn.getConnection();
+    Assert.assertFalse(newConn.isClosed());
+}
+
+@Test
+public void testCloseConnection_ShouldCloseConnection() throws SQLException {
+    DatabaseConnection dbConn = DatabaseConnection.getInstance();
+    Connection conn = dbConn.getConnection();
+    dbConn.closeConnection();
+    Assert.assertTrue(conn.isClosed());
+}
+
+@Test
+public void testGetInstance_ShouldReturnSameInstance() {
+    DatabaseConnection instance1 = DatabaseConnection.getInstance();
+    DatabaseConnection instance2 = DatabaseConnection.getInstance();
+    Assert.assertSame(instance1, instance2);
+}
+
+@Test
+public void testGetConnection_ShouldNotBeNull() {
+    DatabaseConnection dbConn = DatabaseConnection.getInstance();
+    Connection connection = dbConn.getConnection();
+    Assert.assertNotNull(connection);
+}
+
+@Test
+public void testUserSettersAndToString() {
+    
+    User user = new User("testUser", "testPass", 175.0, 70.0);
+
+   
+    user.setUsername("updatedUser");
+    Assert.assertEquals("updatedUser", user.getUsername());
+
+  
+    user.setPassword("newPass");
+    Assert.assertEquals("newPass", user.getPassword());
+
+   
+    Timestamp now = new Timestamp(System.currentTimeMillis());
+    user.setCreatedAt(now);
+    Assert.assertEquals(now, user.getCreatedAt());
+
+    
+    String result = user.toString();
+    Assert.assertNotNull(result);
+    Assert.assertTrue(result.contains("updatedUser"));
 }
 
 
