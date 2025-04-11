@@ -16,6 +16,14 @@ package com.samet.erdem.tracker;
  * @brief Main application class for the Recipe and Nutrition Tracker.
  */
 public class TrackerApp {
+    /**
+     * @brief Main method that serves as the entry point of the application.
+     * @details Initializes the Tracker object and starts the application.
+     *          This method is the starting point of the program and is executed
+     *          when the application is launched.
+     * 
+     * @param args Command line arguments (not used in this application)
+     */
     public static void main(String[] args) {
         Tracker tracker = new Tracker();
         tracker.start();

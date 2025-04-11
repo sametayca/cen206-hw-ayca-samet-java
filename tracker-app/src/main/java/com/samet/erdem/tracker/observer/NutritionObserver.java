@@ -25,4 +25,4 @@ public interface NutritionObserver {
      * @param message The warning message.
      */
     void onWarning(String message);
-} 
+}
