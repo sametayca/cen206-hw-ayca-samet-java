@@ -1,5 +1,7 @@
 package com.samet.erdem.tracker.model;
 
+import java.util.Locale;
+
 /**
  * @class NutritionInfo
  * @brief Class to store nutritional information for food items.
@@ -86,7 +88,12 @@ public class NutritionInfo {
     
     @Override
     public String toString() {
-        return String.format("Calories: %.2f, Protein: %.2fg, Carbs: %.2fg, Fat: %.2fg, Fiber: %.2fg",
+        return String.format(Locale.US, 
+            "Calories: %.1f\n" +
+            "Protein: %.1f\n" +
+            "Carbs: %.1f\n" +
+            "Fat: %.1f\n" +
+            "Fiber: %.1f",
             calories, protein, carbohydrates, fat, fiber);
     }
 } 

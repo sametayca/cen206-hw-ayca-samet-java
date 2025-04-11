@@ -2,6 +2,7 @@ package com.samet.erdem.tracker.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @class Recipe
@@ -106,13 +107,19 @@ public class Recipe extends Food {
     
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Recipe: ").append(getName()).append("\n");
-        sb.append("Servings: ").append(servings).append("\n");
-        sb.append("Preparation Time: ").append(preparationTime).append(" minutes\n");
-        sb.append("Cooking Time: ").append(cookingTime).append(" minutes\n");
-        sb.append("Total Time: ").append(getTotalTime()).append(" minutes\n");
-        sb.append("Nutrition per serving:\n").append(getNutritionInfo());
-        return sb.toString();
+        return String.format(Locale.US,
+            "Recipe: %s\n" +
+            "Servings: %d\n" +
+            "Total Time: %d minutes\n" +
+            "Nutrition per serving:\n" +
+            "Calories: %.1f\n" +
+            "Protein: %.1f\n" +
+            "Carbs: %.1f\n" +
+            "Fat: %.1f",
+            getName(), servings, getTotalTime(),
+            getNutritionInfo().getCalories(),
+            getNutritionInfo().getProtein(),
+            getNutritionInfo().getCarbohydrates(),
+            getNutritionInfo().getFat());
     }
 } 

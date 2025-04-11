@@ -29,6 +29,7 @@ import com.samet.erdem.tracker.model.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -548,6 +549,6 @@ public class Tracker {
      * @return The formatted string.
      */
     public static String formatNumber(double number, int decimalPlaces) {
-        return String.format("%." + decimalPlaces + "f", number);
+        return String.format(Locale.US, "%." + decimalPlaces + "f", number);
     }
 }
