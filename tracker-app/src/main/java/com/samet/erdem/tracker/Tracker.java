@@ -169,6 +169,7 @@ public class Tracker {
                 System.out.println("Registration successful!");
                 System.out.println("Press Enter to continue...");
                 scanner.nextLine();
+                showLoginMenuOnce();
             } catch (SQLException e) {	
                 System.out.println("Error during registration: " + e.getMessage());
             }

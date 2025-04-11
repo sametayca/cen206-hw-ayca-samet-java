@@ -15,15 +15,12 @@ public class DatabaseConnection {
         try {
             // SQLite JDBC sürücüsünü yükle
             Class.forName("org.sqlite.JDBC");
-            System.out.println("SQLite JDBC driver loaded successfully.");
             
             // Veritabanı bağlantısını oluştur
             String dbUrl = "jdbc:sqlite:" + DB_NAME;
-            System.out.println("Connecting to database: " + dbUrl);
             connection = DriverManager.getConnection(dbUrl);
             
             if (connection != null) {
-                System.out.println("Database connection successful.");
                 initializeTables();
             } else {
                 System.err.println("Database connection failed: Connection object is null.");
