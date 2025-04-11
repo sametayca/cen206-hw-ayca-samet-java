@@ -1702,5 +1702,41 @@ public void testShowMainMenu_WithInvalidOption_ShouldShowInvalidOptionMessage() 
     Assert.assertTrue(output.contains("Press Enter to continue..."));
 }
 
+@Test
+public void testGetScanner_ShouldReturnNonNullScanner() {
+    Tracker tracker = new Tracker();
+    Assert.assertNotNull(tracker.getScanner());
+}
+
+@Test
+public void testGetUserDAO_ShouldReturnInstanceOfUserDAO() {
+    Tracker tracker = new Tracker();
+    Assert.assertTrue(tracker.getUserDAO() instanceof UserDAO);
+}
+
+@Test
+public void testGetProductDAO_ShouldReturnInstanceOfProductDAO() {
+    Tracker tracker = new Tracker();
+    Assert.assertTrue(tracker.getProductDAO() instanceof ProductDAO);
+}
+
+@Test
+public void testGetCurrentUser_ShouldReturnNullInitially() {
+    Tracker tracker = new Tracker();
+    Assert.assertNull(tracker.getCurrentUser());
+}
+
+@Test
+public void testGetRecipeManager_ShouldReturnInstanceOfRecipeManager() {
+    Tracker tracker = new Tracker();
+    Assert.assertTrue(tracker.getRecipeManager() instanceof RecipeManager);
+}
+
+@Test
+public void testGetNutritionTracker_ShouldReturnInstanceOfNutritionTracker() {
+    Tracker tracker = new Tracker();
+    Assert.assertTrue(tracker.getNutritionTracker() instanceof NutritionTracker);
+}
+
 
 }
