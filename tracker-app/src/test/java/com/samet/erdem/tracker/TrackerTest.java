@@ -1581,6 +1581,126 @@ public void testUserSettersAndToString() {
     Assert.assertTrue(result.contains("updatedUser"));
 }
 
+@Test
+public void testRegister_WhenUsernameCheckFails_ShouldShowDatabaseError() {
+    // Simüle edilmiş kullanıcı girişi: kullanıcı adı giriliyor ama kontrol SQL hatasına düşüyor
+    String simulatedInput = "errorUser\n\n";
+    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+
+    Tracker tracker = new Tracker() {
+        @Override
+        public void clearScreen() {}
+
+        {
+            // Sahte DAO: usernameExists çağrısı SQLException fırlatır
+            this.userDAO = new UserDAO() {
+                @Override
+                public boolean usernameExists(String username) throws SQLException {
+                    throw new SQLException("Mock DB error!");
+                }
+            };
+        }
+    };
+
+    tracker.register();
+    String output = outContent.toString();
+
+    Assert.assertTrue(output.contains("Database error: Mock DB error!"));
+    Assert.assertTrue(output.contains("Press Enter to continue..."));
+}
+
+@Test
+public void testRegister_WhenSQLExceptionThrown_ShouldShowErrorMessage() {
+    // Simüle edilen giriş: username, password, height, weight
+    String simulatedInput = "sqlErrorUser\nsecure123\n180\n75\n\n";
+    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+
+    Tracker tracker = new Tracker() {
+        @Override
+        public void clearScreen() {}
+
+        {
+            // register() sırasında SQLException fırlatacak sahte DAO
+            this.userDAO = new UserDAO() {
+                @Override
+                public User register(User user) throws SQLException {
+                    throw new SQLException("Simulated database failure");
+                }
+
+                @Override
+                public boolean usernameExists(String username) {
+                    return false;
+                }
+            };
+        }
+    };
+
+    tracker.register();
+
+    String output = outContent.toString();
+    Assert.assertTrue(output.contains("Error during registration: Simulated database failure"));
+}
+
+@Test
+public void testLogin_WhenSQLExceptionThrown_ShouldShowErrorMessage() {
+    // Simüle edilen kullanıcı adı ve şifre girişleri
+    String simulatedInput = "testLoginUser\npassword123\n\n";
+    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+    // Konsol çıktısını yakala
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+
+    Tracker tracker = new Tracker() {
+        @Override
+        public void clearScreen() {}
+
+        {
+            // login() sırasında SQLException fırlatan sahte DAO
+            this.userDAO = new UserDAO() {
+                @Override
+                public User login(String username, String password) throws SQLException {
+                    throw new SQLException("Simulated login error");
+                }
+            };
+        }
+    };
+
+    tracker.login();
+
+    String output = outContent.toString();
+    Assert.assertTrue(output.contains("Error during login: Simulated login error"));
+}
+
+@Test
+public void testShowMainMenu_WithInvalidOption_ShouldShowInvalidOptionMessage() {
+    String simulatedInput = "99\n\n7\n\n"; // 99 geçersiz menü seçeneği, sonra çıkış için 7
+    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+    
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+
+    Tracker tracker = new Tracker() {
+        @Override
+        public void clearScreen() {}
+
+        @Override
+        public void login() {
+            currentUser = new User("dummy", "dummy", 170.0, 70.0); // Login simülasyonu
+            showMainMenu();
+        }
+    };
+
+    tracker.login();
+
+    String output = outContent.toString();
+    Assert.assertTrue(output.contains("Invalid option!"));
+    Assert.assertTrue(output.contains("Press Enter to continue..."));
+}
 
 
 }

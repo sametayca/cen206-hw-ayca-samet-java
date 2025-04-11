@@ -41,7 +41,7 @@ import java.util.Locale;
 */
 public class Tracker {
     private Scanner scanner;
-    private UserDAO userDAO;
+    protected UserDAO userDAO;
     protected ProductDAO productDAO;
     protected User currentUser;
     private RecipeManager recipeManager;
