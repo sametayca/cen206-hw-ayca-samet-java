@@ -1,0 +1,52 @@
+@startgantt
+Project starts the 11th of March 2025
+
+-- Phase 1: Project Definition and Planning --
+[Project Description] lasts 4 days
+
+  [User saves recipes] lasts 1 day and starts at [Project Description]'s start
+  [Weekly/Monthly meal planning] lasts 1 day and starts at [User saves recipes]'s end
+  [Nutritional values analysis] lasts 1 day and starts at [Weekly/Monthly meal planning]'s end
+
+-- Phase 2: Basic Features Development --
+[Basic Features] lasts 6 days and starts at [Nutritional values analysis]'s end
+
+  [User Login and Registration] lasts 1 day and starts at [Basic Features]'s start
+  [Add/Edit/Delete Recipe] lasts 1 day and starts at [User Login and Registration]'s end
+  [Nutritional Calculator] lasts 1 day and starts at [Add/Edit/Delete Recipe]'s end
+  [Meal Planner] lasts 1 day and starts at [Nutritional Calculator]'s end
+  [Shopping List Creator] lasts 1 day and starts at [Meal Planner]'s end
+  [Data Storage] lasts 1 day and starts at [Shopping List Creator]'s end
+  [Optional Features] lasts 1 day and starts at [Data Storage]'s end
+
+-- Phase 3: Technology Research and Design --
+[Technologies Research] lasts 3 days and starts at [Optional Features]'s end
+
+  [Inputs/Outputs] lasts 1 day and starts at [Technologies Research]'s start
+  [Data Storage Tech] lasts 1 day and starts at [Inputs/Outputs]'s end
+  [Interface Research] lasts 1 day and starts at [Data Storage Tech]'s end
+
+-- Phase 4: Class Design --
+[Classroom Design] lasts 3 days and starts at [Interface Research]'s end
+
+  [User, Recipe, Ingredient] lasts 1 day and starts at [Classroom Design]'s start
+  [NutritionInfo, MealPlan] lasts 1 day and starts at [User, Recipe, Ingredient]'s end
+  [ShoppingList, FileManager] lasts 1 day and starts at [NutritionInfo, MealPlan]'s end
+
+-- Phase 5: Functional Requirements and Testing --
+[Functional Requirements] lasts 1 day and starts at [ShoppingList, FileManager]'s end
+
+[Test Plan] lasts 5 days and starts at [Functional Requirements]'s end
+  [Unit Tests] lasts 1 day and starts at [Test Plan]'s start
+  [Scenario Tests] lasts 1 day and starts at [Unit Tests]'s end
+  [File Read/Write Test] lasts 1 day and starts at [Scenario Tests]'s end
+  [Invalid Input Test] lasts 1 day and starts at [File Read/Write Test]'s end
+
+-- Phase 6: Documentation and Finalization --
+[Documentation & Delivery] lasts 4 days and starts at [Invalid Input Test]'s end
+  [User Guide] lasts 1 day and starts at [Documentation & Delivery]'s start
+  [Class Diagrams] lasts 1 day and starts at [User Guide]'s end
+  [Sample Outputs] lasts 1 day and starts at [Class Diagrams]'s end
+  [Final Report] lasts 1 day and starts at [Sample Outputs]'s end
+
+@endgantt
