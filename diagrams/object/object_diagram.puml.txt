@@ -1,0 +1,127 @@
+@startuml Nutrition Tracker Object Diagram
+
+' User Object
+object "user:User" as user {
+    id = 1
+    username = "john_doe"
+    password = "hashed_password"
+    height = 180.0
+    weight = 75.0
+    createdAt = "2024-03-15"
+}
+
+' Recipe Object
+object "recipe:Recipe" as recipe {
+    id = "r1"
+    name = "Chicken Salad"
+    servingSize = 250.0
+    servingUnit = "grams"
+    preparationTime = 15
+    cookingTime = 20
+    servings = 2
+    instructions = ["Cut chicken", "Mix vegetables", "Add dressing"]
+}
+
+' Ingredient Objects
+object "ingredient1:Ingredient" as ing1 {
+    id = "i1"
+    name = "Chicken Breast"
+    servingSize = 100.0
+    servingUnit = "grams"
+    isAllergen = false
+    category = "Protein"
+}
+
+object "ingredient2:Ingredient" as ing2 {
+    id = "i2"
+    name = "Mixed Greens"
+    servingSize = 50.0
+    servingUnit = "grams"
+    isAllergen = false
+    category = "Vegetables"
+}
+
+' Product Object
+object "product:Product" as prod {
+    id = 1
+    name = "Protein Bar"
+    calories = 200.0
+    protein = 20.0
+    carbs = 25.0
+    fat = 8.0
+    userId = 1
+    createdAt = "2024-03-15"
+}
+
+' Nutrition Info Object
+object "nutritionInfo:NutritionInfo" as nutri {
+    calories = 350.0
+    protein = 30.0
+    carbs = 15.0
+    fat = 12.0
+}
+
+' Observer Objects
+object "nutritionTracker:NutritionTracker" as tracker {
+    observers = [observer]
+    dailyCalorieGoal = 2000.0
+    dailyProteinGoal = 150.0
+    dailyCarbsGoal = 200.0
+    dailyFatGoal = 65.0
+}
+
+object "observer:ConsoleNutritionObserver" as observer {
+    lastUpdate = "2024-03-15 14:30:00"
+}
+
+' Database Object
+object "dbConnection:DatabaseConnection" as dbConn {
+    instance = "singleton_instance"
+    connection = "active_connection"
+    DB_NAME = "tracker.db"
+}
+
+' Manager Object
+object "recipeManager:RecipeManager" as recipeManager {
+    instance = "singleton_instance"
+    recipes = [recipe]
+}
+
+' Factory Object
+object "recipeFactory:RecipeFactory" as recipeFactory {
+    lastCreatedId = "r1"
+}
+
+' DAO Objects
+object "productDAO:ProductDAO" as productDAO {
+    connection = dbConn
+}
+
+object "userDAO:UserDAO" as userDAO {
+    connection = dbConn
+}
+
+' Relationships
+user -- prod : owns >
+user -- recipe : created >
+
+recipe -- ing1 : contains >
+recipe -- ing2 : contains >
+
+recipe -- nutri : has >
+prod -- nutri : has >
+
+tracker -- observer : observes >
+tracker -- nutri : tracks >
+
+recipeManager -- recipe : manages >
+
+recipeFactory -- recipe : created >
+
+productDAO -- prod : manages >
+userDAO -- user : manages >
+
+dbConn -- productDAO : connects >
+dbConn -- userDAO : connects >
+
+@enduml

@@ -1,0 +1,195 @@
+@startuml Nutrition Tracker System
+
+' Test Classes
+class TrackerTest {
+    - recipeManager: RecipeManager
+    - nutritionTracker: NutritionTracker
+    - productDAO: ProductDAO
+    - userDAO: UserDAO
+    + setUp(): void
+    + testCreateRecipe(): void
+    + testAddIngredient(): void
+    + testCalculateNutrition(): void
+    + testUserRegistration(): void
+    + testProductManagement(): void
+    + testObserverPattern(): void
+    + tearDown(): void
+}
+
+' Interfaces
+interface ITrackable {
+    + getId(): String
+    + getName(): String
+    + getStatus(): String
+    + updateStatus(status: String): void
+}
+
+' Abstract Classes
+abstract class Food {
+    - id: String
+    - name: String
+    - servingSize: double
+    - servingUnit: String
+    - nutritionInfo: NutritionInfo
+    - status: String
+    + {abstract} calculateCalories(): double
+    + {abstract} getFoodType(): String
+}
+
+' Model Classes
+class Product {
+    - id: int
+    - name: String
+    - calories: double
+    - protein: double
+    - carbs: double
+    - fat: double
+    - userId: int
+    - createdAt: Timestamp
+}
+
+class Recipe {
+    - id: String
+    - name: String
+    - ingredients: List<Ingredient>
+    - instructions: List<String>
+    - preparationTime: int
+    - cookingTime: int
+    - servings: int
+    - servingSize: double
+    - servingUnit: String
+}
+
+class Ingredient {
+    - id: String
+    - name: String
+    - servingSize: double
+    - servingUnit: String
+    - isAllergen: boolean
+    - category: String
+}
+
+class NutritionInfo {
+    - calories: double
+    - protein: double
+    - carbs: double
+    - fat: double
+    + calculateTotal(): void
+}
+
+class User {
+    - id: int
+    - username: String
+    - password: String
+    - height: double
+    - weight: double
+    - createdAt: Timestamp
+}
+
+' Observer Pattern Classes
+interface NutritionObserver {
+    + update(nutritionInfo: NutritionInfo): void
+}
+
+class NutritionTracker {
+    - observers: List<NutritionObserver>
+    + addObserver(observer: NutritionObserver): void
+    + removeObserver(observer: NutritionObserver): void
+    + notifyObservers(): void
+}
+
+class ConsoleNutritionObserver {
+    + update(nutritionInfo: NutritionInfo): void
+}
+
+' Database Classes
+class DatabaseConnection {
+    - {static} instance: DatabaseConnection
+    - connection: Connection
+    - DB_NAME: String
+    + {static} getInstance(): DatabaseConnection
+    + getConnection(): Connection
+    - initializeTables(): void
+}
+
+' DAO Classes
+class ProductDAO {
+    # connection: Connection
+    + addProduct(product: Product): Product
+    + getAllProducts(userId: int): List<Product>
+    + getProductById(id: int): Product
+    + updateProduct(product: Product): boolean
+    + deleteProduct(id: int, userId: int): boolean
+}
+
+class UserDAO {
+    - connection: Connection
+    + register(user: User): User
+    + login(username: String, password: String): User
+    + updateUser(user: User): boolean
+    + getUserById(id: int): User
+    + deleteUser(id: int): boolean
+}
+
+' Factory Pattern Classes
+class RecipeFactory {
+    + {static} createBasicRecipe(name: String, servingSize: double, servingUnit: String): Recipe
+    + {static} createRecipeWithIngredients(...): Recipe
+    + {static} createCompleteRecipe(...): Recipe
+    + {static} createIngredient(...): Ingredient
+}
+
+' Manager Classes
+class RecipeManager {
+    - {static} instance: RecipeManager
+    - recipes: List<Recipe>
+    + {static} getInstance(): RecipeManager
+    + createRecipe(...): Recipe
+    + getAllRecipes(): List<Recipe>
+    + updateRecipe(recipe: Recipe): void
+}
+
+' Main Application Class
+class TrackerApp {
+    + main(args: String[]): void
+}
+
+' Relationships
+ITrackable <|.. Food
+Food <|-- Product
+Food <|-- Ingredient
+Recipe "1" *-- "many" Ingredient
+Recipe "1" *-- "1" NutritionInfo
+Product "1" *-- "1" NutritionInfo
+Ingredient "1" *-- "1" NutritionInfo
+
+NutritionObserver <|.. ConsoleNutritionObserver
+NutritionTracker "1" *-- "many" NutritionObserver
+
+DatabaseConnection "1" -- "many" ProductDAO
+DatabaseConnection "1" -- "many" UserDAO
+
+RecipeManager "1" -- "many" Recipe
+RecipeFactory ..> Recipe : creates
+RecipeFactory ..> Ingredient : creates
+
+User "1" -- "many" Product
+User "1" -- "many" Recipe
+
+ProductDAO ..> Product : manages
+UserDAO ..> User : manages
+
+TrackerApp ..> RecipeManager : uses
+TrackerApp ..> NutritionTracker : uses
+TrackerApp ..> DatabaseConnection : uses
+
+' Test Class Relationships
+TrackerTest ..> RecipeManager : tests
+TrackerTest ..> NutritionTracker : tests
+TrackerTest ..> ProductDAO : tests
+TrackerTest ..> UserDAO : tests
+TrackerTest ..> Recipe : tests
+TrackerTest ..> User : tests
+TrackerTest ..> Product : tests
+
+@enduml
