@@ -65,7 +65,7 @@ public class UserAuthFrame extends JFrame {
         lblUsername.setForeground(TEXT_COLOR);
         panel.add(lblUsername);
 
-        // Kullanıcı adı alanı
+       
         usernameField = new JTextField();
         usernameField.setBounds(96, 192, 233, 32);
         usernameField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -158,7 +158,7 @@ public class UserAuthFrame extends JFrame {
         getContentPane().add(panel);
         
         JLabel lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Samet\\Desktop\\cen206-hw-ayca-samet-java\\tracker-app\\src\\main\\resources\\logo (Custom) (2).png"));
+        lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/logo2.png")));
         lblNewLabel.setBounds(154, 34, 99, 91);
         panel.add(lblNewLabel);
     }

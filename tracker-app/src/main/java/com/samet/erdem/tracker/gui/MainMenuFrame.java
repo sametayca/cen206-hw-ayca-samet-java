@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import java.awt.Component;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 
 public class MainMenuFrame extends JFrame {
 
@@ -41,10 +42,18 @@ public class MainMenuFrame extends JFrame {
 	
 	public MainMenuFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Recipe & Nutrition Tracker");
 		setBounds(100, 100, 709, 570);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
+		 try {
+	            Image icon = new ImageIcon(getClass().getResource("/logo.png")).getImage();
+	            setIconImage(icon);
+	        } catch (Exception e) {
+	            System.err.println("Simge olarak logo yüklenemedi: " + e.getMessage());
+	        }
+		 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
@@ -68,11 +77,11 @@ public class MainMenuFrame extends JFrame {
 		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Samet\\Desktop\\cen206-hw-ayca-samet-java\\tracker-app\\src\\main\\resources\\logo (Custom) (2).png"));
+		lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/logo2.png")));
 		lblNewLabel.setBounds(45, 22, 106, 102);
 		panel.add(lblNewLabel);
 
-		// Buton stili
+		
 		java.awt.Color PRIMARY_COLOR = new java.awt.Color(33, 150, 243);
 		java.awt.Font btnFont = new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 15);
 
@@ -87,6 +96,13 @@ public class MainMenuFrame extends JFrame {
 			javax.swing.BorderFactory.createLineBorder(PRIMARY_COLOR, 2),
 			javax.swing.BorderFactory.createEmptyBorder(8, 0, 8, 0)
 		));
+		btnAddProduct.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				AddProductFrame addFrame = new AddProductFrame();
+				addFrame.setLocationRelativeTo(null); // Ortaya al
+				addFrame.setVisible(true);            // Göster
+			}
+		});
 		panel.add(btnAddProduct);
 
 		JButton btnAllProducts = new JButton("All Products");
@@ -100,6 +116,13 @@ public class MainMenuFrame extends JFrame {
 			javax.swing.BorderFactory.createLineBorder(PRIMARY_COLOR, 2),
 			javax.swing.BorderFactory.createEmptyBorder(8, 0, 8, 0)
 		));
+		btnAllProducts.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				AllProductsFrame allFrame = new AllProductsFrame();
+				allFrame.setLocationRelativeTo(null); // Ortaya al
+				allFrame.setVisible(true);            // Göster
+			}
+		});
 		panel.add(btnAllProducts);
 
 		JButton btnUpdateProduct = new JButton("Update Product");

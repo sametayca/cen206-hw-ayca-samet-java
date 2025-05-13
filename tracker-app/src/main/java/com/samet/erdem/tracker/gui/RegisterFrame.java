@@ -151,7 +151,6 @@ public class RegisterFrame extends JFrame {
 		));
 		panel.add(weightField);
 
-		// Kayıt butonu (outline stil)
 		JButton btnRegister = new JButton("Create Account");
 		btnRegister.setBounds(20, 414, 169, 41);
 		btnRegister.setFont(new Font("Segoe UI", Font.BOLD, 15));
