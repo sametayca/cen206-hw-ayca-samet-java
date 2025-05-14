@@ -78,6 +78,10 @@ public class User {
         return id;
     }
     
+    public User() {
+        // empty
+    }
+    
     /**
      * @brief Sets the user's ID.
      * @details Updates the user's unique identifier.
