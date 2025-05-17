@@ -17,6 +17,7 @@ public class AllProductsFrame extends JFrame {
 
 	public AllProductsFrame(User user) {
 		setTitle("All Products");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/logo2.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 700, 400);
 		contentPane = new JPanel();

@@ -47,6 +47,7 @@ public class AddProductFrame extends JFrame {
 	public AddProductFrame(User user) {
 		this.user = user;
 		setTitle("Add Product / Recipe");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/logo2.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 400, 400);
 		contentPane = new JPanel();

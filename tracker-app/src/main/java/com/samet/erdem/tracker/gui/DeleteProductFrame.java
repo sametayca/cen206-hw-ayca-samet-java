@@ -25,6 +25,7 @@ public class DeleteProductFrame extends JFrame {
 		this.user = user;
 
 		setTitle("Delete Product / Recipe");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/logo2.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 420, 220);
 		contentPane = new JPanel();

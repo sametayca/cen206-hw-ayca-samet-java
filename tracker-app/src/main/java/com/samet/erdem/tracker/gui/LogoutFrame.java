@@ -14,6 +14,7 @@ public class LogoutFrame extends JFrame {
 
 	public LogoutFrame(JFrame parentFrame) {
 		setTitle("Logout Confirmation");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/logo2.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 350, 180);
 		contentPane = new JPanel();
