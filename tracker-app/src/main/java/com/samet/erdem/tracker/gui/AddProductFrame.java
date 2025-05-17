@@ -1,0 +1,151 @@
+package com.samet.erdem.tracker.gui;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import com.samet.erdem.tracker.model.Product;
+import com.samet.erdem.tracker.model.User;
+import com.samet.erdem.tracker.dao.ProductDAO;
+
+public class AddProductFrame extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField txtName;
+	private JTextField txtCalories;
+	private JTextField txtProtein;
+	private JTextField txtCarbs;
+	private JTextField txtFat;
+	private User user;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					// Test için sahte bir kullanıcı oluştur
+					com.samet.erdem.tracker.model.User dummyUser = new com.samet.erdem.tracker.model.User();
+					dummyUser.setId(1); // Varsa uygun bir id ver
+					AddProductFrame frame = new AddProductFrame(dummyUser);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public AddProductFrame(User user) {
+		this.user = user;
+		setTitle("Add Product / Recipe");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 400, 400);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(245, 249, 255));
+		contentPane.setBorder(new EmptyBorder(20, 20, 20, 20));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JLabel lblTitle = new JLabel("Add Product / Recipe");
+		lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		lblTitle.setForeground(new Color(33, 150, 243));
+		lblTitle.setBounds(80, 10, 250, 30);
+		contentPane.add(lblTitle);
+
+		JLabel lblName = new JLabel("Name:");
+		lblName.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblName.setBounds(30, 60, 100, 25);
+		contentPane.add(lblName);
+
+		txtName = new JTextField();
+		txtName.setBounds(140, 60, 200, 25);
+		contentPane.add(txtName);
+
+		JLabel lblCalories = new JLabel("Calories:");
+		lblCalories.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblCalories.setBounds(30, 100, 100, 25);
+		contentPane.add(lblCalories);
+
+		txtCalories = new JTextField();
+		txtCalories.setBounds(140, 100, 200, 25);
+		contentPane.add(txtCalories);
+
+		JLabel lblProtein = new JLabel("Protein (g):");
+		lblProtein.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblProtein.setBounds(30, 140, 100, 25);
+		contentPane.add(lblProtein);
+
+		txtProtein = new JTextField();
+		txtProtein.setBounds(140, 140, 200, 25);
+		contentPane.add(txtProtein);
+
+		JLabel lblCarbs = new JLabel("Carbs (g):");
+		lblCarbs.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblCarbs.setBounds(30, 180, 100, 25);
+		contentPane.add(lblCarbs);
+
+		txtCarbs = new JTextField();
+		txtCarbs.setBounds(140, 180, 200, 25);
+		contentPane.add(txtCarbs);
+
+		JLabel lblFat = new JLabel("Fat (g):");
+		lblFat.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblFat.setBounds(30, 220, 100, 25);
+		contentPane.add(lblFat);
+
+		txtFat = new JTextField();
+		txtFat.setBounds(140, 220, 200, 25);
+		contentPane.add(txtFat);
+
+		JButton btnSave = new JButton("Save");
+		btnSave.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnSave.setForeground(new Color(33, 150, 243));
+		btnSave.setBackground(Color.WHITE);
+		btnSave.setBorder(new LineBorder(new Color(33, 150, 243), 1, true));
+		btnSave.setBounds(60, 280, 100, 30);
+		contentPane.add(btnSave);
+
+		JButton btnBack = new JButton("Back");
+		btnBack.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnBack.setForeground(new Color(33, 150, 243));
+		btnBack.setBackground(Color.WHITE);
+		btnBack.setBorder(new LineBorder(new Color(33, 150, 243), 1, true));
+		btnBack.setBounds(220, 280, 100, 30);
+		contentPane.add(btnBack);
+
+		// Kaydet butonu işlevi
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String name = txtName.getText();
+					double calories = Double.parseDouble(txtCalories.getText());
+					double protein = Double.parseDouble(txtProtein.getText());
+					double carbs = Double.parseDouble(txtCarbs.getText());
+					double fat = Double.parseDouble(txtFat.getText());
+
+					Product product = new Product(name, calories, protein, carbs, fat, user.getId());
+					ProductDAO productDAO = new ProductDAO();
+					productDAO.addProduct(product);
+
+					JOptionPane.showMessageDialog(AddProductFrame.this, "Product/Recipe added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+					dispose();
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(AddProductFrame.this, "Please fill all fields correctly!", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+
+		// Geri dön butonu işlevi
+		btnBack.addActionListener(e -> dispose());
+	}
+
+}
