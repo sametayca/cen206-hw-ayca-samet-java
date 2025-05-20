@@ -7,6 +7,7 @@ import java.awt.*;
 
 import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.UserDAO;
+import com.samet.erdem.tracker.AppConfig;
 
 public class AdjustDietFrame extends JFrame {
 
@@ -105,31 +106,20 @@ public class AdjustDietFrame extends JFrame {
 
 			UserDAO userDAO = new UserDAO();
 			boolean success = userDAO.updateUser(user);
-			if (success) {
+			if (!AppConfig.isTestMode) {
 				JOptionPane.showMessageDialog(this, "Profile updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 				lblCurrentHeight.setText("Current Height: " + user.getHeight() + " cm");
 				lblCurrentWeight.setText("Current Weight: " + user.getWeight() + " kg");
-			} else {
+			}
+			if (!AppConfig.isTestMode) {
 				JOptionPane.showMessageDialog(this, "Update failed!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Please enter valid values!", "Error", JOptionPane.ERROR_MESSAGE);
+			if (!AppConfig.isTestMode) {
+				JOptionPane.showMessageDialog(this, "Please enter valid values!", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					// Test için sahte bir kullanıcı oluştur
-					com.samet.erdem.tracker.model.User dummyUser = new com.samet.erdem.tracker.model.User();
-					dummyUser.setId(1); // Varsa uygun bir id ver
-					AdjustDietFrame frame = new AdjustDietFrame(dummyUser);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 }

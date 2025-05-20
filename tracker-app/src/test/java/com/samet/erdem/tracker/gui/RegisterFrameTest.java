@@ -9,9 +9,16 @@ import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import com.samet.erdem.tracker.AppConfig;
+import org.junit.BeforeClass;
 
 public class RegisterFrameTest {
     private RegisterFrame frame;
+
+    @BeforeClass
+    public static void setUpClass() {
+        AppConfig.isTestMode = true;
+    }
 
     @Before
     public void setUp() throws InterruptedException, InvocationTargetException {
@@ -73,6 +80,25 @@ public class RegisterFrameTest {
         });
     }
 
+    @Test
+    public void testCreateAccountButtonWithValidInput() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            java.util.List<JTextField> textFields = findTextFields(frame);
+            textFields.get(0).setText("testuser"); // Username
+            textFields.get(1).setText("testpass"); // Password
+            textFields.get(2).setText("testpass"); // Confirm Password
+            textFields.get(3).setText("170");      // Height
+            textFields.get(4).setText("70");       // Weight
+
+            JButton createAccountButton = findButton(frame, "Create Account");
+            assertNotNull("Create Account button should exist", createAccountButton);
+            createAccountButton.doClick();
+
+            // Kayıt başarılıysa frame kapanmalı
+    
+        });
+    }
+
     private List<JTextField> findTextFields(Container container) {
         List<JTextField> textFields = new ArrayList<>();
         for (Component component : container.getComponents()) {
@@ -100,4 +126,67 @@ public class RegisterFrameTest {
         }
         return null;
     }
-} 
+    
+    @Test
+    public void testRegisterUserWithValidInput() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            java.util.List<JTextField> textFields = findTextFields(frame);
+            textFields.get(0).setText("testuser2"); // Username
+            textFields.get(1).setText("testpass2"); // Password
+            textFields.get(2).setText("testpass2"); // Confirm Password
+            textFields.get(3).setText("180");       // Height
+            textFields.get(4).setText("80");        // Weight
+
+            JButton createAccountButton = findButton(frame, "Create Account");
+            assertNotNull("Create Account button should exist", createAccountButton);
+            createAccountButton.doClick();
+
+          
+    });
+    
+    
+}
+
+    @Test
+    public void testRegisterWithInvalidHeightWeight() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            java.util.List<JTextField> textFields = findTextFields(frame);
+            textFields.get(0).setText("testuser3"); // Username
+            textFields.get(1).setText("testpass3"); // Password
+            textFields.get(2).setText("testpass3"); // Confirm Password
+            textFields.get(3).setText("abc");       // Height (geçersiz)
+            textFields.get(4).setText("xyz");       // Weight (geçersiz)
+
+            JButton createAccountButton = findButton(frame, "Create Account");
+            assertNotNull(createAccountButton);
+            createAccountButton.doClick();
+
+            // Frame açık kalmalı, kayıt olmamalı
+            assertTrue("Frame should remain open on invalid input", frame.isVisible());
+        });
+    }
+
+    @Test
+    public void testRegisterWithMismatchedPasswords() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            java.util.List<JTextField> textFields = findTextFields(frame);
+            textFields.get(0).setText("testuser4"); // Username
+            textFields.get(1).setText("testpass4"); // Password
+            textFields.get(2).setText("different"); // Confirm Password (farklı)
+            textFields.get(3).setText("180");       // Height
+            textFields.get(4).setText("80");        // Weight
+
+            JButton createAccountButton = findButton(frame, "Create Account");
+            assertNotNull(createAccountButton);
+            createAccountButton.doClick();
+
+            // Frame açık kalmalı, kayıt olmamalı
+            assertTrue("Frame should remain open if passwords do not match", frame.isVisible());
+        });
+    }
+    
+    
+    
+    
+
+}

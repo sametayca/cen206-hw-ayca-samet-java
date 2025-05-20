@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.UserDAO;
+import com.samet.erdem.tracker.AppConfig;
 public class UserAuthFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -102,17 +103,23 @@ public class UserAuthFrame extends JFrame {
 				    User user = userDAO.login(username, password);
 				    
 				    if (user != null) {
-				        JOptionPane.showMessageDialog(UserAuthFrame.this, "Login successful!", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+				        if (!AppConfig.isTestMode) {
+				            JOptionPane.showMessageDialog(UserAuthFrame.this, "Login successful!", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+				        }
 				        MainMenuFrame mainMenu = new MainMenuFrame(user);
 				        mainMenu.setVisible(true);
 				        mainMenu.setLocationRelativeTo(null);
 				        UserAuthFrame.this.dispose(); 
 				    } else {
-				        JOptionPane.showMessageDialog(UserAuthFrame.this, "Invalid username or password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
+				        if (!AppConfig.isTestMode) {
+				            JOptionPane.showMessageDialog(UserAuthFrame.this, "Invalid username or password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
+				        }
 				    }
 				} catch (Exception ex) {
+				    if (!AppConfig.isTestMode) {
+				        JOptionPane.showMessageDialog(UserAuthFrame.this, "An error occurred during login.", "Error", JOptionPane.ERROR_MESSAGE);
+				    }
 				    ex.printStackTrace();
-				    JOptionPane.showMessageDialog(UserAuthFrame.this, "An error occurred during login.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}

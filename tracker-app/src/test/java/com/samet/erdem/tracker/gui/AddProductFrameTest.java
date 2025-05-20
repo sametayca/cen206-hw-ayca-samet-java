@@ -7,10 +7,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import com.samet.erdem.tracker.model.User;
+import com.samet.erdem.tracker.AppConfig;
+import org.junit.BeforeClass;
 
 public class AddProductFrameTest {
     private AddProductFrame addProductFrame;
     private User testUser;
+    
+    
+
+    @BeforeClass
+    public static void setUpClass() {
+        AppConfig.isTestMode = true;
+    }
 
     @Before
     public void setUp() throws InterruptedException, InvocationTargetException {
@@ -64,10 +73,24 @@ public class AddProductFrameTest {
     @Test
     public void testSaveButton() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
+            // Fill in the fields with valid data
+            JTextField nameField = findTextFieldByBounds(addProductFrame, 140, 60);
+            nameField.setText("Test Product");
+            JTextField caloriesField = findTextFieldByBounds(addProductFrame, 140, 100);
+            caloriesField.setText("100");
+            JTextField proteinField = findTextFieldByBounds(addProductFrame, 140, 140);
+            proteinField.setText("10");
+            JTextField carbsField = findTextFieldByBounds(addProductFrame, 140, 180);
+            carbsField.setText("20");
+            JTextField fatField = findTextFieldByBounds(addProductFrame, 140, 220);
+            fatField.setText("5");
+
             JButton saveButton = findButton(addProductFrame, "Save");
             assertNotNull("Save button should exist", saveButton);
             saveButton.doClick();
-            // Ürün ekleme işlemi için ek assertion eklenebilir.
+
+            // Assert that the frame is closed after saving
+            assertFalse("Frame should be closed after saving", addProductFrame.isVisible());
         });
     }
 

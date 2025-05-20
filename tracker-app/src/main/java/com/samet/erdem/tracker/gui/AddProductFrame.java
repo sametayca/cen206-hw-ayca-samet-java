@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import com.samet.erdem.tracker.model.Product;
 import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.ProductDAO;
+import com.samet.erdem.tracker.AppConfig;
 
 public class AddProductFrame extends JFrame {
 
@@ -25,21 +26,7 @@ public class AddProductFrame extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					// Test için sahte bir kullanıcı oluştur
-					com.samet.erdem.tracker.model.User dummyUser = new com.samet.erdem.tracker.model.User();
-					dummyUser.setId(1); // Varsa uygun bir id ver
-					AddProductFrame frame = new AddProductFrame(dummyUser);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
@@ -137,10 +124,14 @@ public class AddProductFrame extends JFrame {
 					ProductDAO productDAO = new ProductDAO();
 					productDAO.addProduct(product);
 
-					JOptionPane.showMessageDialog(AddProductFrame.this, "Product/Recipe added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+					if (!AppConfig.isTestMode) {
+						JOptionPane.showMessageDialog(AddProductFrame.this, "Product/Recipe added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+					}
 					dispose();
 				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(AddProductFrame.this, "Please fill all fields correctly!", "Error", JOptionPane.ERROR_MESSAGE);
+					if (!AppConfig.isTestMode) {
+						JOptionPane.showMessageDialog(AddProductFrame.this, "Please fill all fields correctly!", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		});

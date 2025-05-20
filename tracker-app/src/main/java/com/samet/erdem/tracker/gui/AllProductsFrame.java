@@ -7,6 +7,7 @@ import java.util.List;
 import com.samet.erdem.tracker.model.Product;
 import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.ProductDAO;
+import com.samet.erdem.tracker.AppConfig;
 
 public class AllProductsFrame extends JFrame {
 
@@ -72,7 +73,9 @@ public class AllProductsFrame extends JFrame {
 			}
 			return data;
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Error loading products!", "Error", JOptionPane.ERROR_MESSAGE);
+			if (!AppConfig.isTestMode) {
+				JOptionPane.showMessageDialog(this, "Error loading products!", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 			return new Object[0][5];
 		}
 	}

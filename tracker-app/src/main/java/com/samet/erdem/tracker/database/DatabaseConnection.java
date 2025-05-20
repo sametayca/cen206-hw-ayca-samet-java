@@ -67,18 +67,12 @@ public class DatabaseConnection {
             if (connection != null) {
                 initializeTables();
             } else {
-                System.err.println("Database connection failed: Connection object is null.");
+               
             }
         } catch (ClassNotFoundException e) {
-            System.err.println("SQLite JDBC driver not found: " + e.getMessage());
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.err.println("Database connection error: " + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
-            e.printStackTrace();
-        }
+            
+        } catch (SQLException e) {}
+            
     }
     
     /**

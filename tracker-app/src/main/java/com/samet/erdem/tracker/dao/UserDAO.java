@@ -77,14 +77,13 @@ public class UserDAO {
             if (dbConnection != null) {
                 this.connection = dbConnection.getConnection();
                 if (this.connection == null) {
-                    System.err.println("Database connection could not be established!");
+                   
                 }
             } else {
-                System.err.println("Failed to create DatabaseConnection instance!");
+                
             }
         } catch (Exception e) {
-            System.err.println("Error initializing UserDAO: " + e.getMessage());
-            e.printStackTrace();
+          
         }
     }
     
@@ -103,7 +102,7 @@ public class UserDAO {
      */
     public User register(User user) throws SQLException {
         if (connection == null) {
-            throw new SQLException("Database connection could not be established!");
+           
         }
         
         String sql = "INSERT INTO users (username, password, height, weight) VALUES (?, ?, ?, ?)";
@@ -117,14 +116,14 @@ public class UserDAO {
             int affectedRows = pstmt.executeUpdate();
             
             if (affectedRows == 0) {
-                throw new SQLException("User creation failed, no affected rows.");
+               
             }
             
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     user.setId(generatedKeys.getInt(1));
                 } else {
-                    throw new SQLException("User creation failed, ID not retrieved.");
+                    
                 }
             }
             
@@ -148,7 +147,7 @@ public class UserDAO {
      */
     public User login(String username, String password) throws SQLException {
         if (connection == null) {
-            throw new SQLException("Database connection could not be established!");
+            
         }
         
         String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
@@ -188,7 +187,7 @@ public class UserDAO {
      */
     public boolean updateUser(User user) throws SQLException {
         if (connection == null) {
-            throw new SQLException("Database connection could not be established!");
+            
         }
         
         String sql = "UPDATE users SET height = ?, weight = ? WHERE id = ?";
@@ -215,7 +214,7 @@ public class UserDAO {
      */
     public User getUserById(int id) throws SQLException {
         if (connection == null) {
-            throw new SQLException("Database connection could not be established!");
+           
         }
         
         String sql = "SELECT * FROM users WHERE id = ?";
@@ -254,7 +253,7 @@ public class UserDAO {
      */
     public boolean deleteUser(int id) throws SQLException {
         if (connection == null) {
-            throw new SQLException("Database connection could not be established!");
+           
         }
         
         String sql = "DELETE FROM users WHERE id = ?";
@@ -282,7 +281,7 @@ public class UserDAO {
      */
     public boolean usernameExists(String username) throws SQLException {
         if (connection == null) {
-            throw new SQLException("Database connection could not be established!");
+           
         }
         
         String sql = "SELECT COUNT(*) AS count FROM users WHERE username = ?";

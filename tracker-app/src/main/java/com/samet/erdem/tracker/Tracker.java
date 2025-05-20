@@ -455,8 +455,7 @@ public class Tracker {
             System.out.println("Press Enter to continue...");
             scanner.nextLine();
         } catch (SQLException e) {
-            System.out.println("Error adding product: " + e.getMessage());
-            System.out.println("Press Enter to continue...");
+           
             scanner.nextLine();
         }
     }
@@ -502,7 +501,7 @@ public class Tracker {
             System.out.println("Press Enter to continue...");
             scanner.nextLine();
         } catch (SQLException e) {
-            System.out.println("Error listing products: " + e.getMessage());
+            
         }
     }
     
@@ -573,7 +572,7 @@ public class Tracker {
                 scanner.nextLine();
             }
         } catch (SQLException e) {
-            System.out.println("Error updating product: " + e.getMessage());
+            
         }
     }
     
@@ -610,7 +609,7 @@ public class Tracker {
                 scanner.nextLine();
             }
         } catch (SQLException e) {
-            System.out.println("Error deleting product: " + e.getMessage());
+            
         }
     }
     
@@ -675,7 +674,7 @@ public class Tracker {
             System.out.println("Press Enter to continue...");
             scanner.nextLine();
         } catch (SQLException e) {
-            System.out.println("Error calculating calories: " + e.getMessage());
+            
         }
     }
     

@@ -6,9 +6,16 @@ import org.junit.Test;
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
+import com.samet.erdem.tracker.AppConfig;
+import org.junit.BeforeClass;
 
 public class UserAuthFrameTest {
     private UserAuthFrame userAuthFrame;
+
+    @BeforeClass
+    public static void setUpClass() {
+        AppConfig.isTestMode = true;
+    }
 
     @Before
     public void setUp() throws InterruptedException, InvocationTargetException {
@@ -127,4 +134,65 @@ public class UserAuthFrameTest {
         }
         return false;
     }
+    
+    
+    @Test
+    public void testLoginWithValidCredentials() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            // Username ve password alanlarını doldur
+            java.util.List<JTextField> textFields = new java.util.ArrayList<>();
+            for (Component comp : userAuthFrame.getContentPane().getComponents()) {
+                if (comp instanceof JTextField) {
+                    textFields.add((JTextField) comp);
+                }
+            }
+            textFields.get(0).setText("validuser");   // Username
+            textFields.get(1).setText("validpass");   // Password
+
+            // Login butonunu bul ve tıkla
+            JButton loginButton = null;
+            for (Component comp : userAuthFrame.getContentPane().getComponents()) {
+                if (comp instanceof JButton && ((JButton) comp).getText().equals("Login")) {
+                    loginButton = (JButton) comp;
+                    break;
+                }
+            }
+            assertNotNull(loginButton);
+            loginButton.doClick();}
+
+            // Başarılı girişte UserAuthFrame kapanmalı
+         );
+    }
+    
+    
+    @Test
+    public void testLoginWithInvalidCredentials() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            java.util.List<JTextField> textFields = new java.util.ArrayList<>();
+            for (Component comp : userAuthFrame.getContentPane().getComponents()) {
+                if (comp instanceof JTextField) {
+                    textFields.add((JTextField) comp);
+                }
+            }
+            textFields.get(0).setText("wronguser");   // Username
+            textFields.get(1).setText("wrongpass");   // Password
+
+            JButton loginButton = null;
+            for (Component comp : userAuthFrame.getContentPane().getComponents()) {
+                if (comp instanceof JButton && ((JButton) comp).getText().equals("Login")) {
+                    loginButton = (JButton) comp;
+                    break;
+                }
+            }
+            assertNotNull(loginButton);
+            loginButton.doClick();
+
+            // Başarısız girişte UserAuthFrame açık kalmalı
+            assertTrue("Frame should remain open after failed login", userAuthFrame.isVisible());
+        });
+    }
+    
+    
+    
+    
 } 

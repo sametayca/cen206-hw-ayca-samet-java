@@ -10,6 +10,7 @@ import javax.swing.border.LineBorder;
 
 import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.UserDAO;
+import com.samet.erdem.tracker.AppConfig;
 
 public class RegisterFrame extends JFrame {
 
@@ -119,12 +120,16 @@ public class RegisterFrame extends JFrame {
 					height = Double.parseDouble(textField_3.getText());
 					weight = Double.parseDouble(textField.getText());
 				} catch (NumberFormatException ex) {
-					JOptionPane.showMessageDialog(RegisterFrame.this, "Height and Weight must be numbers!", "Error", JOptionPane.ERROR_MESSAGE);
+					if (!AppConfig.isTestMode) {
+						JOptionPane.showMessageDialog(RegisterFrame.this, "Height and Weight must be numbers!", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 					return;
 				}
 
 				if (!password.equals(confirmPassword)) {
-					JOptionPane.showMessageDialog(RegisterFrame.this, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
+					if (!AppConfig.isTestMode) {
+						JOptionPane.showMessageDialog(RegisterFrame.this, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 					return;
 				}
 
@@ -132,7 +137,9 @@ public class RegisterFrame extends JFrame {
 
 				try {
 					if (userDAO.usernameExists(username)) {
-						JOptionPane.showMessageDialog(RegisterFrame.this, "Username already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+						if (!AppConfig.isTestMode) {
+							JOptionPane.showMessageDialog(RegisterFrame.this, "Username already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+						}
 						return;
 					}
 
@@ -144,13 +151,17 @@ public class RegisterFrame extends JFrame {
 
 					userDAO.register(user);
 
-					JOptionPane.showMessageDialog(RegisterFrame.this, "Account created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+					if (!AppConfig.isTestMode) {
+						JOptionPane.showMessageDialog(RegisterFrame.this, "Account created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+					}
 					dispose();
 					new UserAuthFrame().setVisible(true);
 
 				} catch (Exception ex) {
+					if (!AppConfig.isTestMode) {
+						JOptionPane.showMessageDialog(RegisterFrame.this, "An error occurred while creating the account.", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 					ex.printStackTrace();
-					JOptionPane.showMessageDialog(RegisterFrame.this, "An error occurred while creating the account.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

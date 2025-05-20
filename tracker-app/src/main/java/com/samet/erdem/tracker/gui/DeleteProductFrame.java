@@ -9,6 +9,7 @@ import java.util.List;
 import com.samet.erdem.tracker.model.Product;
 import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.ProductDAO;
+import com.samet.erdem.tracker.AppConfig;
 
 public class DeleteProductFrame extends JFrame {
 
@@ -84,26 +85,37 @@ public class DeleteProductFrame extends JFrame {
 				comboProducts.addItem(p);
 			}
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Error loading products!", "Error", JOptionPane.ERROR_MESSAGE);
+			if (!AppConfig.isTestMode) {
+				JOptionPane.showMessageDialog(this, "Error loading products!", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
 	private void deleteProduct() {
 		Product selected = (Product) comboProducts.getSelectedItem();
 		if (selected == null) return;
-		int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this product?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+		int confirm = JOptionPane.YES_OPTION;
+		if (!AppConfig.isTestMode) {
+			confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this product?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+		}
 		if (confirm != JOptionPane.YES_OPTION) return;
 		try {
 			ProductDAO productDAO = new ProductDAO();
 			boolean success = productDAO.deleteProduct(selected.getId(), user.getId());
 			if (success) {
-				JOptionPane.showMessageDialog(this, "Product deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+				if (!AppConfig.isTestMode) {
+					JOptionPane.showMessageDialog(this, "Product deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+				}
 				loadProducts();
 			} else {
-				JOptionPane.showMessageDialog(this, "Delete failed!", "Error", JOptionPane.ERROR_MESSAGE);
+				if (!AppConfig.isTestMode) {
+					JOptionPane.showMessageDialog(this, "Delete failed!", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Error deleting product!", "Error", JOptionPane.ERROR_MESSAGE);
+			if (!AppConfig.isTestMode) {
+				JOptionPane.showMessageDialog(this, "Error deleting product!", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 }

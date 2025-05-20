@@ -6,6 +6,8 @@ import org.junit.Test;
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
+
+import com.samet.erdem.tracker.model.Product;
 import com.samet.erdem.tracker.model.User;
 
 public class UpdateProductFrameTest {
@@ -125,4 +127,35 @@ public class UpdateProductFrameTest {
         }
         return null;
     }
+    
+    
+    @Test
+    public void testUpdateProductWithValidInput() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            // ComboBox'a bir ürün ekle ve seçili yap
+            Product product = new Product("OldName", 100, 10, 20, 5, 1);
+            updateProductFrame.comboProducts.addItem(product);
+            updateProductFrame.comboProducts.setSelectedItem(product);
+
+            // Alanlara yeni değerler gir
+            updateProductFrame.txtName.setText("NewName");
+            updateProductFrame.txtCalories.setText("200");
+            updateProductFrame.txtProtein.setText("20");
+            updateProductFrame.txtCarbs.setText("40");
+            updateProductFrame.txtFat.setText("10");
+
+            // Update butonunu bul ve tıkla
+            JButton updateButton = findButton(updateProductFrame, "Update");
+            assertNotNull(updateButton);
+            updateButton.doClick();
+
+            // Ürün güncellenmiş mi kontrol et
+            assertEquals("NewName", product.getName());
+            assertEquals(200.0, product.getCalories(), 0.01);
+            assertEquals(20.0, product.getProtein(), 0.01);
+            assertEquals(40.0, product.getCarbs(), 0.01);
+            assertEquals(10.0, product.getFat(), 0.01);
+        });
+    }
+    
 } 

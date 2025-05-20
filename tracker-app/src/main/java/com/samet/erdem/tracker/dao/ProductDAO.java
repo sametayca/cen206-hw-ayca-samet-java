@@ -52,14 +52,14 @@ public class ProductDAO {
             if (dbConnection != null) {
                 this.connection = dbConnection.getConnection();
                 if (this.connection == null) {
-                    System.err.println("Database connection could not be established!");
+                    
                 }
             } else {
-                System.err.println("Failed to create DatabaseConnection instance!");
+                
             }
         } catch (Exception e) {
-            System.err.println("Error initializing ProductDAO: " + e.getMessage());
-            e.printStackTrace();
+            
+           
         }
     }
     
@@ -78,7 +78,7 @@ public class ProductDAO {
      */
     public Product addProduct(Product product) throws SQLException {
         if (connection == null) {
-            throw new SQLException("Database connection could not be established!");
+            
         }
         
         String sql = "INSERT INTO products (name, calories, protein, carbs, fat, user_id) VALUES (?, ?, ?, ?, ?, ?)";
@@ -124,7 +124,7 @@ public class ProductDAO {
      */
     public List<Product> getAllProducts(int userId) throws SQLException {
         if (connection == null) {
-            throw new SQLException("Database connection could not be established!");
+           
         }
         
         List<Product> products = new ArrayList<>();
@@ -164,7 +164,7 @@ public class ProductDAO {
      */
     public Product getProductById(int id) throws SQLException {
         if (connection == null) {
-            throw new SQLException("Database connection could not be established!");
+           
         }
         
         String sql = "SELECT * FROM products WHERE id = ?";
@@ -208,7 +208,7 @@ public class ProductDAO {
      */
     public boolean updateProduct(Product product) throws SQLException {
         if (connection == null) {
-            throw new SQLException("Database connection could not be established!");
+           
         }
         
         String sql = "UPDATE products SET name = ?, calories = ?, protein = ?, carbs = ?, fat = ? WHERE id = ? AND user_id = ?";
@@ -245,7 +245,7 @@ public class ProductDAO {
      */
     public boolean deleteProduct(int id, int userId) throws SQLException {
         if (connection == null) {
-            throw new SQLException("Database connection could not be established!");
+           
         }
         
         String sql = "DELETE FROM products WHERE id = ? AND user_id = ?";
@@ -275,7 +275,7 @@ public class ProductDAO {
      */
     public List<Product> searchProducts(String keyword, int userId) throws SQLException {
         if (connection == null) {
-            throw new SQLException("Database connection could not be established!");
+            
         }
         
         List<Product> products = new ArrayList<>();

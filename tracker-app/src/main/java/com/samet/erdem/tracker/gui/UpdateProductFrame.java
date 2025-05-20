@@ -11,17 +11,18 @@ import java.util.List;
 import com.samet.erdem.tracker.model.Product;
 import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.ProductDAO;
+import com.samet.erdem.tracker.AppConfig;
 
 public class UpdateProductFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JComboBox<Product> comboProducts;
-	private JTextField txtName;
-	private JTextField txtCalories;
-	private JTextField txtProtein;
-	private JTextField txtCarbs;
-	private JTextField txtFat;
+	JComboBox<Product> comboProducts;
+	JTextField txtName;
+	JTextField txtCalories;
+	JTextField txtProtein;
+	JTextField txtCarbs;
+	JTextField txtFat;
 	private JButton btnUpdate;
 	private JButton btnBack;
 
@@ -165,7 +166,9 @@ public class UpdateProductFrame extends JFrame {
 				fillFields();
 			}
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Error loading products!", "Error", JOptionPane.ERROR_MESSAGE);
+			if (!AppConfig.isTestMode) {
+				JOptionPane.showMessageDialog(this, "Error loading products!", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
@@ -193,13 +196,19 @@ public class UpdateProductFrame extends JFrame {
 			ProductDAO productDAO = new ProductDAO();
 			boolean success = productDAO.updateProduct(selected);
 			if (success) {
-				JOptionPane.showMessageDialog(this, "Product updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+				if (!AppConfig.isTestMode) {
+					JOptionPane.showMessageDialog(this, "Product updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+				}
 				loadProducts();
 			} else {
-				JOptionPane.showMessageDialog(this, "Update failed!", "Error", JOptionPane.ERROR_MESSAGE);
+				if (!AppConfig.isTestMode) {
+					JOptionPane.showMessageDialog(this, "Update failed!", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Please fill all fields correctly!", "Error", JOptionPane.ERROR_MESSAGE);
+			if (!AppConfig.isTestMode) {
+				JOptionPane.showMessageDialog(this, "Please fill all fields correctly!", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 }
