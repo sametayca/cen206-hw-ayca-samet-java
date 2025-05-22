@@ -21,12 +21,36 @@ import java.sql.Timestamp;
  *          - Format user data for display or logging purposes
  */
 public class User {
-    private int id;
-    private String username;
-    private String password;
-    private double height;
-    private double weight;
-    private Timestamp createdAt;
+    /**
+ * @brief Unique identifier for the user.
+ */
+private int id;
+
+/**
+ * @brief Username used for login and identification.
+ */
+private String username;
+
+/**
+ * @brief User's account password.
+ * @details Stored in plain text or hashed form depending on implementation.
+ */
+private String password;
+
+/**
+ * @brief User's height in centimeters or meters.
+ */
+private double height;
+
+/**
+ * @brief User's weight in kilograms.
+ */
+private double weight;
+
+/**
+ * @brief Timestamp indicating when the user account was created.
+ */
+private Timestamp createdAt;
     
     /**
      * @brief Constructor for creating a new user without an ID.
@@ -78,6 +102,11 @@ public class User {
         return id;
     }
     
+    /**
+     * @brief Default constructor for the User class.
+     * @details This constructor is used when creating a new User object without any specific parameters.
+     *          It initializes the User object with default values for all fields.
+     */
     public User() {
         // empty
     }

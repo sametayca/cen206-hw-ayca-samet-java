@@ -1,3 +1,8 @@
+/**
+ * @package com.samet.erdem.tracker.gui
+ * @brief Contains graphical user interface components for the Recipe & Nutrition Tracker application.
+ * @details This package includes all Swing-based frames and UI elements that allow users to interact with the system.
+ */
 package com.samet.erdem.tracker.gui;
 
 import javax.swing.*;
@@ -21,6 +26,10 @@ import java.awt.*;
  */
 public class LogoutFrame extends JFrame {
 
+	/** 
+ * @brief Serialization ID for version control. 
+ * @details Ensures compatibility during the deserialization process.
+ */
 	private static final long serialVersionUID = 1L;
 	
 	/** Main content panel of the frame */

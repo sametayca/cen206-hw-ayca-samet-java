@@ -31,8 +31,16 @@ import com.samet.erdem.tracker.AppConfig;
  * @version 1.0
  */
 public class UpdateProductFrame extends JFrame {
-
+	/** 
+ * @brief Serialization ID for version control. 
+ * @details Ensures compatibility during the deserialization process.
+ */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+ * @brief Main content panel of the frame.
+ * @details Acts as the container for all GUI components in the window.
+ */
 	private JPanel contentPane;
 	JComboBox<Product> comboProducts;
 	JTextField txtName;
@@ -40,11 +48,27 @@ public class UpdateProductFrame extends JFrame {
 	JTextField txtProtein;
 	JTextField txtCarbs;
 	JTextField txtFat;
-	private JButton btnUpdate;
-	private JButton btnBack;
+	/**
+ * @brief Button to trigger the update action for a product.
+ */
+private JButton btnUpdate;
 
-	private User user;
-	private List<Product> products;
+/**
+ * @brief Button to navigate back to the previous screen.
+ */
+private JButton btnBack;
+
+/**
+ * @brief Currently logged-in user.
+ * @details Holds the user information for session-specific operations.
+ */
+private User user;
+
+/**
+ * @brief List of products available to the user.
+ * @details Used to display or manipulate products in the interface.
+ */
+private List<Product> products;
 
 	/**
 	 * @brief Main method to launch the update product frame.

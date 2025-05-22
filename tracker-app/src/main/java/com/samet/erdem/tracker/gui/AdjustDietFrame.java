@@ -25,6 +25,10 @@ import com.samet.erdem.tracker.AppConfig;
  */
 public class AdjustDietFrame extends JFrame {
 
+	/**
+	 * @brief Serialization version UID for this class.
+	 * @details Ensures class compatibility during the deserialization process.
+	 */
 	private static final long serialVersionUID = 1L;
 	
 	/** Main content panel of the frame */
