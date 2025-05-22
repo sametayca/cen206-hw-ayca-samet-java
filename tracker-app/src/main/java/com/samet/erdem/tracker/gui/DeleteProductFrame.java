@@ -11,17 +11,54 @@ import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.ProductDAO;
 import com.samet.erdem.tracker.AppConfig;
 
+/**
+ * @brief Frame for deleting products and recipes from the user's database.
+ * 
+ * This class provides a graphical user interface that allows users to:
+ * - View a list of their existing products/recipes
+ * - Select a product/recipe for deletion
+ * - Confirm deletion through a dialog
+ * - Receive feedback on the deletion operation
+ * 
+ * The frame maintains the application's consistent design theme and includes
+ * error handling for database operations.
+ * 
+ * @author Samet Erdem
+ * @version 1.0
+ */
 public class DeleteProductFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
+	/** Main content panel of the frame */
 	private JPanel contentPane;
+	
+	/** Combo box for selecting the product to delete */
 	private JComboBox<Product> comboProducts;
+	
+	/** Button to confirm and execute product deletion */
 	private JButton btnDelete;
+	
+	/** Button to return to previous screen */
 	private JButton btnBack;
-
+	
+	/** Current user whose products are being managed */
 	private User user;
+	
+	/** List of products available for deletion */
 	private List<Product> products;
 
+	/**
+	 * @brief Constructs a new DeleteProductFrame for the specified user.
+	 * 
+	 * Initializes the frame and sets up the UI components for product deletion.
+	 * The frame includes:
+	 * - Product selection dropdown
+	 * - Delete and back buttons
+	 * - Confirmation dialog
+	 * 
+	 * @param user The User object whose products will be managed
+	 */
 	public DeleteProductFrame(User user) {
 		this.user = user;
 
@@ -76,6 +113,13 @@ public class DeleteProductFrame extends JFrame {
 		btnBack.addActionListener(e -> dispose());
 	}
 
+	/**
+	 * @brief Loads the user's products into the selection dropdown.
+	 * 
+	 * Retrieves all products associated with the user from the database
+	 * and populates the combo box. Includes error handling for database
+	 * operations and displays appropriate error messages.
+	 */
 	private void loadProducts() {
 		try {
 			ProductDAO productDAO = new ProductDAO();
@@ -91,6 +135,18 @@ public class DeleteProductFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * @brief Handles the product deletion process.
+	 * 
+	 * Performs the following operations:
+	 * - Gets the selected product from the combo box
+	 * - Shows a confirmation dialog
+	 * - Deletes the product from the database if confirmed
+	 * - Refreshes the product list
+	 * - Shows success/error messages
+	 * 
+	 * Includes error handling for database operations and user feedback.
+	 */
 	private void deleteProduct() {
 		Product selected = (Product) comboProducts.getSelectedItem();
 		if (selected == null) return;

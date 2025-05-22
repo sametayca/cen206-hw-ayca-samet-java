@@ -20,22 +20,58 @@ import java.awt.Dimension;
 
 import com.samet.erdem.tracker.model.User;
 
+/**
+ * @brief Main menu frame for the Recipe & Nutrition Tracker application.
+ * 
+ * This class represents the main menu window of the application, providing access to all major features
+ * through a set of buttons. It includes functionality for managing products/recipes, calculating calories,
+ * adjusting diet plans, and user authentication.
+ * 
+ * @author Samet Erdem
+ * @version 1.0
+ */
 public class MainMenuFrame extends JFrame {
 
     private static final long serialVersionUID = 1L;
+    
+    /** Main content panel of the frame */
     private JPanel contentPane;
+    
+    /** Panel containing all navigation buttons */
     private JPanel buttonPanel;
+    
+    /** Current user logged into the application */
     private User currentUser;
 
-    // Field olarak tanımlanan butonlar
+    /** Button to add new products or recipes */
     private JButton btnAddProduct;
+    
+    /** Button to view all products and recipes */
     private JButton btnViewProducts;
+    
+    /** Button to update existing products or recipes */
     private JButton btnUpdateProduct;
+    
+    /** Button to delete products or recipes */
     private JButton btnDeleteProduct;
+    
+    /** Button to calculate total nutrition values */
     private JButton btnCalculateCalories;
+    
+    /** Button to adjust diet-related measurements */
     private JButton btnAdjustDiet;
+    
+    /** Button to log out of the application */
     private JButton btnLogout;
 
+    /**
+     * @brief Main method to launch the application.
+     * 
+     * Creates a dummy user and initializes the main menu frame for testing purposes.
+     * This method is primarily used for testing the GUI independently.
+     * 
+     * @param args Command line arguments (not used)
+     */
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
@@ -49,6 +85,20 @@ public class MainMenuFrame extends JFrame {
         });
     }
 
+    /**
+     * @brief Constructs a new MainMenuFrame for the specified user.
+     * 
+     * Initializes the main menu window with all necessary UI components including:
+     * - Welcome header with user's name
+     * - Application logo
+     * - Navigation buttons for all major features
+     * - Action listeners for all buttons
+     * 
+     * The frame is styled with a modern, clean design using a blue color scheme
+     * and includes proper spacing and layout management.
+     * 
+     * @param user The User object representing the currently logged-in user
+     */
     public MainMenuFrame(User user) {
         this.currentUser = user;
 

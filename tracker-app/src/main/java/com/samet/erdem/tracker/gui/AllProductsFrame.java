@@ -9,13 +9,45 @@ import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.ProductDAO;
 import com.samet.erdem.tracker.AppConfig;
 
+/**
+ * @brief Frame for displaying all products and recipes in a tabular format.
+ * 
+ * This class provides a graphical user interface that displays all products and recipes
+ * associated with a user in a table format. The table includes columns for:
+ * - Product/Recipe name
+ * - Calorie content
+ * - Protein content (in grams)
+ * - Carbohydrate content (in grams)
+ * - Fat content (in grams)
+ * 
+ * The frame features a scrollable table view and maintains the application's
+ * consistent design theme.
+ * 
+ * @author Samet Erdem
+ * @version 1.0
+ */
 public class AllProductsFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
+	/** Main content panel of the frame */
 	private JPanel contentPane;
+	
+	/** Table component displaying the products and recipes */
 	private JTable table;
+	
+	/** Scroll pane containing the table for handling overflow */
 	private JScrollPane scrollPane;
 
+	/**
+	 * @brief Constructs a new AllProductsFrame for the specified user.
+	 * 
+	 * Initializes the frame and populates it with the user's products and recipes
+	 * in a tabular format. Sets up the UI components with a modern design
+	 * matching the application theme.
+	 * 
+	 * @param user The User object whose products will be displayed
+	 */
 	public AllProductsFrame(User user) {
 		setTitle("All Products");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/logo2.png")));
@@ -57,7 +89,16 @@ public class AllProductsFrame extends JFrame {
 		contentPane.add(btnPanel, BorderLayout.SOUTH);
 	}
 
-	// Kullanıcının ürünlerini çekip tabloya uygun diziye çevirir
+	/**
+	 * @brief Retrieves and formats product data for the table display.
+	 * 
+	 * Fetches all products associated with the user from the database and
+	 * formats them into a 2D array suitable for JTable display. Includes
+	 * error handling for database operations.
+	 * 
+	 * @param user The User object whose products to retrieve
+	 * @return Object[][] Array containing formatted product data for the table
+	 */
 	private Object[][] getProductData(User user) {
 		try {
 			ProductDAO productDAO = new ProductDAO();

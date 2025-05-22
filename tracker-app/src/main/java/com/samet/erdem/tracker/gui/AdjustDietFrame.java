@@ -9,19 +9,56 @@ import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.UserDAO;
 import com.samet.erdem.tracker.AppConfig;
 
+/**
+ * @brief Frame for adjusting user's diet-related measurements.
+ * 
+ * This class provides a graphical user interface for users to update their
+ * height and weight measurements. It displays current measurements and allows
+ * users to input new values. The frame includes:
+ * - Current height and weight display
+ * - Input fields for new measurements
+ * - Update and back buttons
+ * - Input validation and error handling
+ * 
+ * @author Samet Erdem
+ * @version 1.0
+ */
 public class AdjustDietFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
+	/** Main content panel of the frame */
 	private JPanel contentPane;
+	
+	/** Label displaying the user's current height */
 	private JLabel lblCurrentHeight;
+	
+	/** Label displaying the user's current weight */
 	private JLabel lblCurrentWeight;
+	
+	/** Text field for entering new height value */
 	private JTextField txtNewHeight;
+	
+	/** Text field for entering new weight value */
 	private JTextField txtNewWeight;
+	
+	/** Button to update the measurements */
 	private JButton btnUpdate;
+	
+	/** Button to return to previous screen */
 	private JButton btnBack;
-
+	
+	/** Current user whose measurements are being adjusted */
 	private User user;
 
+	/**
+	 * @brief Constructs a new AdjustDietFrame for the specified user.
+	 * 
+	 * Initializes the frame with current user measurements and input fields.
+	 * Sets up the UI components with a modern design matching the application theme.
+	 * 
+	 * @param user The User object whose measurements will be adjusted
+	 */
 	public AdjustDietFrame(User user) {
 		this.user = user;
 
@@ -92,6 +129,13 @@ public class AdjustDietFrame extends JFrame {
 		btnBack.addActionListener(e -> dispose());
 	}
 
+	/**
+	 * @brief Updates the user's height and weight measurements.
+	 * 
+	 * Validates and processes the new measurements entered by the user.
+	 * Updates the database and refreshes the display if successful.
+	 * Shows appropriate success/error messages to the user.
+	 */
 	private void updateDiet() {
 		try {
 			String newHeightStr = txtNewHeight.getText().trim();

@@ -10,20 +10,65 @@ import com.samet.erdem.tracker.model.Product;
 import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.ProductDAO;
 
+/**
+ * @brief Frame for calculating and displaying total nutrition values and BMI.
+ * 
+ * This class provides a graphical user interface that calculates and displays:
+ * - Total calories from all products/recipes
+ * - Total protein content (in grams)
+ * - Total carbohydrate content (in grams)
+ * - Total fat content (in grams)
+ * - User's BMI (Body Mass Index)
+ * - BMI status category (Underweight, Normal, Overweight, Obese)
+ * 
+ * The frame maintains the application's consistent design theme and provides
+ * real-time calculations based on the user's product database.
+ * 
+ * @author Samet Erdem
+ * @version 1.0
+ */
 public class CalculateCaloriesFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
+	/** Main content panel of the frame */
 	private JPanel contentPane;
+	
+	/** Label displaying total calories */
 	private JLabel lblTotalCalories;
+	
+	/** Label displaying total protein content */
 	private JLabel lblTotalProtein;
+	
+	/** Label displaying total carbohydrate content */
 	private JLabel lblTotalCarbs;
+	
+	/** Label displaying total fat content */
 	private JLabel lblTotalFat;
+	
+	/** Label displaying calculated BMI value */
 	private JLabel lblBMI;
+	
+	/** Label displaying BMI status category */
 	private JLabel lblBMIStatus;
+	
+	/** Button to return to previous screen */
 	private JButton btnBack;
-
+	
+	/** Current user whose nutrition values are being calculated */
 	private User user;
 
+	/**
+	 * @brief Constructs a new CalculateCaloriesFrame for the specified user.
+	 * 
+	 * Initializes the frame and sets up the UI components for displaying
+	 * nutrition calculations and BMI information. The frame includes:
+	 * - Labels for all nutrition values
+	 * - BMI calculation and status display
+	 * - Back button for navigation
+	 * 
+	 * @param user The User object whose nutrition values will be calculated
+	 */
 	public CalculateCaloriesFrame(User user) {
 		this.user = user;
 
@@ -87,6 +132,17 @@ public class CalculateCaloriesFrame extends JFrame {
 		calculateAndDisplay();
 	}
 
+	/**
+	 * @brief Calculates and displays nutrition values and BMI.
+	 * 
+	 * Performs the following calculations:
+	 * - Sums up all nutrition values from user's products
+	 * - Calculates BMI using user's height and weight
+	 * - Determines BMI status category
+	 * 
+	 * Updates all display labels with calculated values and handles
+	 * any potential calculation errors.
+	 */
 	private void calculateAndDisplay() {
 		try {
 			ProductDAO productDAO = new ProductDAO();

@@ -12,15 +12,47 @@ import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.ProductDAO;
 import com.samet.erdem.tracker.AppConfig;
 
+/**
+ * @brief Frame for adding new products or recipes to the nutrition tracker.
+ * 
+ * This class provides a graphical user interface for users to add new products or recipes
+ * to their nutrition tracking system. It includes input fields for:
+ * - Product/Recipe name
+ * - Calorie content
+ * - Protein content (in grams)
+ * - Carbohydrate content (in grams)
+ * - Fat content (in grams)
+ * 
+ * The frame implements data validation and error handling for user inputs,
+ * and provides feedback through dialog messages. It uses a clean, modern design
+ * with a consistent color scheme matching the main application.
+ * 
+ * @author Samet Erdem
+ * @version 1.0
+ */
 public class AddProductFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
+	/** Main content panel of the frame */
 	private JPanel contentPane;
+	
+	/** Text field for entering the product/recipe name */
 	private JTextField txtName;
+	
+	/** Text field for entering the calorie content */
 	private JTextField txtCalories;
+	
+	/** Text field for entering the protein content in grams */
 	private JTextField txtProtein;
+	
+	/** Text field for entering the carbohydrate content in grams */
 	private JTextField txtCarbs;
+	
+	/** Text field for entering the fat content in grams */
 	private JTextField txtFat;
+	
+	/** Current user who is adding the product/recipe */
 	private User user;
 
 	/**

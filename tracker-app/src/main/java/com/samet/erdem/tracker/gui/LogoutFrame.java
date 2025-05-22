@@ -5,13 +5,47 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
+/**
+ * @brief Frame for handling user logout confirmation.
+ * 
+ * This class provides a graphical user interface that:
+ * - Displays a logout confirmation dialog
+ * - Allows users to confirm or cancel the logout action
+ * - Handles the transition between main application and login screen
+ * 
+ * The frame maintains the application's consistent design theme and
+ * provides a clean, user-friendly interface for the logout process.
+ * 
+ * @author Samet Erdem
+ * @version 1.0
+ */
 public class LogoutFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
+	/** Main content panel of the frame */
 	private JPanel contentPane;
+	
+	/** Button to confirm logout action */
 	private JButton btnYes;
+	
+	/** Button to cancel logout action */
 	private JButton btnNo;
 
+	/**
+	 * @brief Constructs a new LogoutFrame with a reference to the parent frame.
+	 * 
+	 * Initializes the frame and sets up the UI components for logout confirmation.
+	 * The frame includes:
+	 * - Confirmation message
+	 * - Yes/No buttons for user choice
+	 * - Action listeners for handling user decisions
+	 * 
+	 * When confirmed, closes the parent frame and opens the login screen.
+	 * When cancelled, simply closes the confirmation dialog.
+	 * 
+	 * @param parentFrame The main application frame that will be closed on logout
+	 */
 	public LogoutFrame(JFrame parentFrame) {
 		setTitle("Logout Confirmation");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/logo2.png")));

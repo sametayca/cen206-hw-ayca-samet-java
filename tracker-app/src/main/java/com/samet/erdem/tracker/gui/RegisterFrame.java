@@ -12,18 +12,52 @@ import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.UserDAO;
 import com.samet.erdem.tracker.AppConfig;
 
+/**
+ * @brief Frame for user registration in the Recipe & Nutrition Tracker application.
+ * 
+ * This class provides a graphical user interface for new users to create an account.
+ * It includes functionality for:
+ * - Username and password input with confirmation
+ * - Height and weight input for initial user profile
+ * - Input validation and error handling
+ * - User registration in the database
+ * - Navigation between registration and login screens
+ * 
+ * The frame maintains the application's consistent design theme and
+ * provides a clean, user-friendly interface for the registration process.
+ * 
+ * @author Samet Erdem
+ * @version 1.0
+ */
 public class RegisterFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
+	/** Main content panel of the frame */
 	private JPanel contentPane;
+	
+	/** Text field for username input */
 	private JTextField textUsername;
+	
+	/** Text field for password input */
 	private JTextField textPassword;
-	private JTextField textField_2; // Confirm Password
-	private JTextField textField_3; // Height
-	private JTextField textField;   // Weight
+	
+	/** Text field for password confirmation */
+	private JTextField textField_2;
+	
+	/** Text field for height input */
+	private JTextField textField_3;
+	
+	/** Text field for weight input */
+	private JTextField textField;
 
 	/**
-	 * Launch the application.
+	 * @brief Main method to launch the registration frame.
+	 * 
+	 * Creates and displays the registration frame for testing purposes.
+	 * This method is primarily used for testing the GUI independently.
+	 * 
+	 * @param args Command line arguments (not used)
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
@@ -37,7 +71,21 @@ public class RegisterFrame extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * @brief Constructs a new RegisterFrame.
+	 * 
+	 * Initializes the registration window with all necessary UI components including:
+	 * - Input fields for username, password, height, and weight
+	 * - Labels for each input field
+	 * - Create Account and Back to Login buttons
+	 * - Action listeners for form submission and navigation
+	 * 
+	 * The frame includes validation for:
+	 * - Numeric input for height and weight
+	 * - Password confirmation matching
+	 * - Username availability
+	 * 
+	 * The frame is styled with a modern, clean design using a blue color scheme
+	 * and includes proper spacing and layout management.
 	 */
 	public RegisterFrame() {
 		setTitle("Recipe & Nutrition Tracker");

@@ -13,6 +13,23 @@ import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.ProductDAO;
 import com.samet.erdem.tracker.AppConfig;
 
+/**
+ * @brief Frame for updating product and recipe information in the Recipe & Nutrition Tracker application.
+ * 
+ * This class provides a graphical user interface for modifying existing products and recipes.
+ * It includes functionality for:
+ * - Selecting a product from a dropdown list
+ * - Viewing and editing product details (name, calories, protein, carbs, fat)
+ * - Updating product information in the database
+ * - Input validation and error handling
+ * - Navigation between screens
+ * 
+ * The frame maintains the application's consistent design theme and
+ * provides a clean, user-friendly interface for the update process.
+ * 
+ * @author Samet Erdem
+ * @version 1.0
+ */
 public class UpdateProductFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -30,7 +47,12 @@ public class UpdateProductFrame extends JFrame {
 	private List<Product> products;
 
 	/**
-	 * Launch the application.
+	 * @brief Main method to launch the update product frame.
+	 * 
+	 * Creates a dummy user and initializes the update product frame for testing purposes.
+	 * This method is primarily used for testing the GUI independently.
+	 * 
+	 * @param args Command line arguments (not used)
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -49,7 +71,20 @@ public class UpdateProductFrame extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * @brief Constructs a new UpdateProductFrame for the specified user.
+	 * 
+	 * Initializes the update product window with all necessary UI components including:
+	 * - Product selection dropdown
+	 * - Input fields for product details
+	 * - Update and Back buttons
+	 * - Action listeners for form submission and navigation
+	 * 
+	 * The frame includes validation for:
+	 * - Numeric input for nutritional values
+	 * - Product selection verification
+	 * - Database update confirmation
+	 * 
+	 * @param user The User object representing the currently logged-in user
 	 */
 	public UpdateProductFrame(User user) {
 		this.user = user;
@@ -153,6 +188,13 @@ public class UpdateProductFrame extends JFrame {
 		btnBack.addActionListener(e -> dispose());
 	}
 
+	/**
+	 * @brief Loads all products for the current user into the combo box.
+	 * 
+	 * Retrieves products from the database and populates the combo box.
+	 * Automatically selects the first product and fills the input fields.
+	 * Displays an error message if loading fails.
+	 */
 	private void loadProducts() {
 		try {
 			ProductDAO productDAO = new ProductDAO();
@@ -172,6 +214,12 @@ public class UpdateProductFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * @brief Fills the input fields with the selected product's information.
+	 * 
+	 * Updates all text fields with the current values of the selected product.
+	 * Called when a new product is selected from the combo box.
+	 */
 	private void fillFields() {
 		Product selected = (Product) comboProducts.getSelectedItem();
 		if (selected != null) {
@@ -183,6 +231,15 @@ public class UpdateProductFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * @brief Updates the selected product with new information.
+	 * 
+	 * Validates and updates the product's information in the database.
+	 * Shows success or error messages based on the operation result.
+	 * Includes validation for:
+	 * - Numeric input for nutritional values
+	 * - Product selection verification
+	 */
 	private void updateProduct() {
 		Product selected = (Product) comboProducts.getSelectedItem();
 		if (selected == null) return;

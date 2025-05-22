@@ -20,17 +20,50 @@ import java.awt.event.ActionEvent;
 import com.samet.erdem.tracker.model.User;
 import com.samet.erdem.tracker.dao.UserDAO;
 import com.samet.erdem.tracker.AppConfig;
+
+/**
+ * @brief Frame for user authentication in the Recipe & Nutrition Tracker application.
+ * 
+ * This class provides a graphical user interface for user login and registration.
+ * It includes functionality for:
+ * - Username and password input
+ * - User authentication against the database
+ * - Navigation to registration screen
+ * - Error handling and user feedback
+ * - Transition to main menu upon successful login
+ * 
+ * The frame maintains the application's consistent design theme and
+ * provides a clean, user-friendly interface for the authentication process.
+ * 
+ * @author Samet Erdem
+ * @version 1.0
+ */
 public class UserAuthFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
+	/** Main content panel of the frame */
 	private JPanel contentPane;
+	
+	/** Text field for username input */
 	private JTextField textUsername;
+	
+	/** Text field for password input */
 	private JTextField textPassword;
+	
+	/** Label displaying the welcome message */
 	private JLabel lblNewLabel_1;
+	
+	/** Button to navigate to registration screen */
 	private JButton btnRegisterButton;
 
 	/**
-	 * Launch the application.
+	 * @brief Main method to launch the authentication frame.
+	 * 
+	 * Creates and displays the authentication frame for testing purposes.
+	 * This method is primarily used for testing the GUI independently.
+	 * 
+	 * @param args Command line arguments (not used)
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -46,7 +79,23 @@ public class UserAuthFrame extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * @brief Constructs a new UserAuthFrame.
+	 * 
+	 * Initializes the authentication window with all necessary UI components including:
+	 * - Application logo
+	 * - Welcome message
+	 * - Username and password input fields
+	 * - Login and Register buttons
+	 * - Action listeners for authentication and navigation
+	 * 
+	 * The frame includes functionality for:
+	 * - User authentication against the database
+	 * - Error handling and user feedback
+	 * - Navigation to registration screen
+	 * - Transition to main menu upon successful login
+	 * 
+	 * The frame is styled with a modern, clean design using a blue color scheme
+	 * and includes proper spacing and layout management.
 	 */
 	public UserAuthFrame() {
 		setTitle("Recipe & Nutrition Tracker");
