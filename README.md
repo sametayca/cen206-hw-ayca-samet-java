@@ -200,14 +200,10 @@ cen206-hw-ayca-samet-java/
 
 | Name | Role |
 |------|------|
+| **Emre Kıran** | Developer |
 | **Samet Ayca** | Developer |
 | **Arda Firidin** | Developer |
 | **Erdem Bekir Akturk** | Developer |
-| **Emre Kiran** | Developer |
-
-**Course:** CEN 206 — Software Engineering  
-**University:** Recep Tayyip Erdoğan University  
-**Instructor:** Asst. Prof. Dr. Ugur Coruh
 
 ---
 
